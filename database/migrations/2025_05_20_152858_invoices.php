@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('number')->nullable();
             $table->enum('type', ['sell', 'buy', 'buyRefund', 'sellRefund']);
-            $table->enum('_payment_status', ['unpaid', 'partial', 'paid']);
+            $table->enum('payment_status', ['unpaid', 'partial', 'paid']);
             $table->string('note')->nullable();
             $table->float('unDiscounted_amount',10,3);
             $table->float('discounted_amount',10,3);
@@ -30,8 +30,12 @@ return new class extends Migration
 
             $table->date('date')->nullable();
 
+            $table->foreignId('business_id')
+                ->constrained('businesses')
+                ->onDelete('cascade');
 
             $table->foreignId('branch_id')
+                ->nullable()
                 ->constrained('branches')
                 ->onDelete('cascade');
 

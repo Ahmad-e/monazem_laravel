@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('expiration_date');
 
 
-
             $table->foreignId('invoices_products_id')
                 ->constrained('invoices_products')
                 ->onDelete('cascade');

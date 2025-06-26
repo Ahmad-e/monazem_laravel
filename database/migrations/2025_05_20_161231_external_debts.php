@@ -26,7 +26,6 @@ return new class extends Migration
             $table->enum('state', ['paid','unpaid','partial','dead','forgiven']);
 
             $table->foreignId('business_id')
-                ->nullable()
                 ->constrained('businesses')
                 ->onDelete('cascade');
 
@@ -47,7 +46,6 @@ return new class extends Migration
             $table->foreignId('creator_id')
                 ->constrained('users')
                 ->onDelete('cascade');
-
 
             $table->timestamps();
         });

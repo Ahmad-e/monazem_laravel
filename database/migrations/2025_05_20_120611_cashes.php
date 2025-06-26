@@ -26,7 +26,6 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
 
-
             $table->foreignId('currency_id')
                 ->constrained('currencies')
                 ->onDelete('cascade');

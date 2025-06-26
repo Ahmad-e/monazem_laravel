@@ -17,6 +17,14 @@ class Users
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && (Auth::user()->type_id == 1 || Auth::user()->type_id == 2)) {
+            if(Auth::user()->blocked){
+                return response()->json([
+                    'status' => false,
+                    'error'=> 412 ,
+                    'message' => 'Your account is blocked, you cannot use the system'
+                ], 412);
+            }
+
             return $next($request);
         }
 

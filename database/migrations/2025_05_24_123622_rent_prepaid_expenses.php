@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('	rent_prepaid_expenses', function (Blueprint $table) {
+        Schema::create('rent_prepaid_expenses', function (Blueprint $table) {
             $table->id();
             $table->float('amount');
             $table->float('book_value');

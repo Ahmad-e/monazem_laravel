@@ -22,7 +22,6 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'type_id' => 'required',
             'business_name' => 'required'
         ]);
 
@@ -30,7 +29,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'type_id'=>$request->type_id,
+            'type_id'=> 2,
             'img_url'=>$request->img_url,
             'phone_number'=>$request->phone_number,
             'password' => Hash::make($request->password),
@@ -79,7 +78,34 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'type_id'=>$request->type_id,
+            'type_id'=> 2,
+            'img_url'=>$request->img_url,
+            'phone_number'=>$request->phone_number,
+            'password' => Hash::make($request->password),
+            'business_id' => $creator->business_id,
+            'branch_id' => $request->branch_id
+        ]);
+        $users = User::where('business_id',$creator->business_id)->get();
+        return response()->json([
+            'user' => $user,
+            'users' => $users
+        ], 201);
+    }
+
+    public function create_admin_account(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $creator = Auth::user();
+
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'type_id'=> 1,
             'img_url'=>$request->img_url,
             'phone_number'=>$request->phone_number,
             'password' => Hash::make($request->password),
@@ -96,6 +122,13 @@ class AuthController extends Controller
     public function showAccounts(){
         $creator = Auth::user();
         $users = User::where('business_id',$creator->business_id)->get();
+        return response()->json([
+            'users' => $users
+        ], 201);
+    }
+
+    public function show_Admins_Accounts(){
+        $users = User::where('type_id',2)->get();
         return response()->json([
             'users' => $users
         ], 201);
@@ -140,6 +173,36 @@ class AuthController extends Controller
             return response()->json(['error' => 'Failed to update Account'], 500);
         }
     }
+
+    public function update_Admin_Account(Request $request,$id)
+    {
+        $user = User::find($id);
+        if(!$user){
+            return response()->json([
+                'state' => 404,
+                'error'=> 2 ,
+                'message'=>"no user id found",
+            ], 404);
+        }
+
+        try {
+            $user->update($request->only([
+                'name',
+                'email',
+                'phone_number',
+                'branch_id'
+            ]));
+            $users = User::where('type_id',2)->get();
+            return response()->json([
+                'user'=>$user,
+                'users' => $users
+            ], 201);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Failed to update Account'], 500);
+        }
+    }
+
+
     public function toggleOverPowerUser($id)
     {
         $user = User::find($id);

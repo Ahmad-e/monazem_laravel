@@ -42,6 +42,15 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->foreignId('business_id')
+                ->constrained('businesses')
+                ->onDelete('cascade');
+
+            $table->foreignId('branch_id')
+                ->nullable()
+                ->constrained('branches')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

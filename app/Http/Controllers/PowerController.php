@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Business;
+use App\Models\Currencies;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Powers;
@@ -213,5 +214,23 @@ class PowerController extends Controller
             'state' => 200,
             'data'=>$data
         ], 200);
+    }
+    public function addMultiplePowers(Request $request)
+    {
+        // إدخال البيانات في قاعدة البيانات
+
+        foreach ($request->powers as $powerData) {
+            Powers::create([
+                'ar_name' => $powerData['ar_name'],
+                'en_name' => $powerData['en_name'],
+                'level' => $powerData['level']
+            ]);
+        }
+        $data = Powers::get();
+        return response()->json([
+            'state' => 200,
+            'data'=>$data,
+            'message' => "Powers added successfully",
+        ], 201);
     }
 }
