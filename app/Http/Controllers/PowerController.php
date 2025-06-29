@@ -198,8 +198,9 @@ class PowerController extends Controller
         ], 200);
     }
 
-    public function showUser_Power ($id){
-        $data = Powers_users:: where('user_id',$id)
+    public function showUser_Power (){
+        $user = Auth::user();
+        $data = Powers_users:: where('user_id',$user->id)
             ->join( 'powers' , 'powers.id' , 'powers_users.power_id'  )
             ->join( 'users' , 'users.id' , 'powers_users.user_id'  )
             ->get([
@@ -212,7 +213,8 @@ class PowerController extends Controller
             ]);
         return response()->json([
             'state' => 200,
-            'data'=>$data
+            'data'=>$data,
+            'user'=>$user
         ], 200);
     }
     public function addMultiplePowers(Request $request)

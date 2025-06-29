@@ -24,6 +24,7 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\ExternalDeptsController;
 use App\Http\Controllers\InternalDeptsController;
+use App\Http\Controllers\StockController;
 
 use App\Http\Middleware\Users;
 use App\Http\Middleware\Admins;
@@ -133,7 +134,7 @@ Route::middleware('api')->group(function () {
 
 //   power api
     Route::post('/addUserPower', [PowerController::class, 'addUserPower'])->middleware(Users::class)->middleware(access_power::class);
-    Route::get('/showUser_Power/{id}', [PowerController::class, 'showUser_Power'])->middleware(Users::class)->middleware(access_power::class);
+    Route::get('/showUser_Power', [PowerController::class, 'showUser_Power'])->middleware(Users::class)->middleware(access_power::class);
     Route::post('/getPowers', [PowerController::class, 'getPowers']);
     Route::post('/deleteUser_Power', [PowerController::class, 'deleteUserPower'])->middleware(Users::class)->middleware(access_power::class);
     Route::post('/addMultiplePowers', [PowerController::class, 'addMultiplePowers'])->middleware(Admins::class);
@@ -191,6 +192,15 @@ Route::middleware('api')->group(function () {
     Route::post('/addExternalDeptPayment', [ExternalDeptsController::class, 'addExternalDeptPayment'])->middleware(Users::class)->middleware(depts_power::class);
     Route::get('/deleteExternalDeptPayment/{id}', [ExternalDeptsController::class, 'deleteExternalDeptPayment'])->middleware(Users::class)->middleware(depts_power::class);
 
+//    InternalDept  api
+    Route::post('/addInternalDept', [InternalDeptsController::class, 'addInternalDept'])->middleware(Users::class)->middleware(depts_power::class);
+    Route::get('/showInternalDept', [InternalDeptsController::class, 'showInternalDept'])->middleware(Users::class)->middleware(depts_power::class);
+    Route::post('/changeInternalDept/{id}', [InternalDeptsController::class, 'changeInternalDept'])->middleware(Users::class)->middleware(depts_power::class);
+    Route::get('/deleteInternalDept/{id}', [InternalDeptsController::class, 'deleteInternalDept'])->middleware(Users::class)->middleware(depts_power::class);
+
+    Route::post('/addInternalDeptPayment', [InternalDeptsController::class, 'addInternalDeptPayment'])->middleware(Users::class)->middleware(depts_power::class);
+    Route::get('/deleteInternalDeptPayment/{id}', [InternalDeptsController::class, 'deleteInternalDeptPayment'])->middleware(Users::class)->middleware(depts_power::class);
+
 //    Revenues api
     Route::post('/addRevenue', [RevenuesController::class, 'addRevenue'])->middleware(Users::class)->middleware(revenues_power::class);
     Route::get('/deleteRevenue/{id}', [RevenuesController::class, 'deleteRevenue'])->middleware(Users::class)->middleware(revenues_power::class);
@@ -231,10 +241,15 @@ Route::middleware('api')->group(function () {
 
 //    invoice api
 
-    Route::get('/showInvoices', [InvoicesController::class, 'showInvoices'])->middleware(Users::class);
-    Route::post('/addInvoices', [InvoicesController::class, 'addInvoices'])->middleware(Users::class);
-    Route::post('/changInvoices/{id}', [InvoicesController::class, 'changInvoices'])->middleware(Users::class);
+    Route::get('/showInvoices', [InvoicesController::class, 'showInvoices'])->middleware(Users::class)->middleware(invoice_power::class);
+    Route::post('/addInvoices', [InvoicesController::class, 'addInvoices'])->middleware(Users::class)->middleware(invoice_power::class);
+    Route::post('/changInvoices/{id}', [InvoicesController::class, 'changInvoices'])->middleware(Users::class)->middleware(invoice_power::class);
 
+//    Transactions api
+
+    Route::get('/showTransaction', [TransactionsController::class, 'showTransaction'])->middleware(Users::class)->middleware(transaction_power::class);
+    Route::post('/addTransaction', [TransactionsController::class, 'addTransaction'])->middleware(Users::class)->middleware(transaction_power::class);
+    Route::post('/changeTransaction/{id}', [TransactionsController::class, 'changeTransaction'])->middleware(Users::class)->middleware(transaction_power::class);
 
 //    building api
 
@@ -249,6 +264,13 @@ Route::middleware('api')->group(function () {
     Route::post('/addPlace', [BuildingPlaces::class, 'addPlace'])->middleware(Users::class)->middleware(places_power::class);
     Route::get('/toggleBlockPlaces/{id}', [BuildingPlaces::class, 'toggleBlockPlaces'])->middleware(Users::class)->middleware(places_power::class);
     Route::post('/changePlace/{id}', [BuildingPlaces::class, 'changePlace'])->middleware(Users::class)->middleware(places_power::class);
+
+//    places api
+
+    Route::get('/showStocks/{id}', [StockController::class, 'showStocks'])->middleware(Users::class)->middleware(places_power::class);
+    Route::post('/addStocks', [StockController::class, 'addStocks'])->middleware(Users::class)->middleware(places_power::class);
+    Route::get('/deleteStocks/{id}', [StockController::class, 'deleteStocks'])->middleware(Users::class)->middleware(places_power::class);
+    Route::post('/changeStocks/{id}', [StockController::class, 'changeStocks'])->middleware(Users::class)->middleware(places_power::class);
 
 //    Cashes api
 

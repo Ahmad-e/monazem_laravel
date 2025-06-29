@@ -20,5 +20,17 @@ class Internal_depts extends Model
         'currency_id',
         'client_id',
         'creator_id',
+        'business_id',
+        'branch_id',
     ];
+
+    public function payments()
+    {
+        return $this->hasMany(Internal_depts_paymentes::class,'internal_dept_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

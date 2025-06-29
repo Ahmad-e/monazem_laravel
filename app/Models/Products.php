@@ -24,4 +24,18 @@ class Products extends Model
     {
         return $this->hasMany(Products_prices::class,'product_id');
     }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoices::class, 'invoices_products', 'product_id', 'invoice_id')
+            ->withPivot([
+                'products_count',
+                'total_product_price',
+                'tax_amount',
+                'products_price_id',
+                'place_id',
+                'currency_id'
+            ])
+            ->withTimestamps();
+    }
 }
