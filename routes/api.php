@@ -55,6 +55,7 @@ use App\Http\Middleware\setting_power;
 use App\Http\Middleware\invoice_power;
 use App\Http\Middleware\transaction_power;
 use App\Http\Middleware\depts_power;
+use App\Http\Middleware\stock_power;
 
 use Illuminate\Support\Facades\Route;
 
@@ -267,10 +268,10 @@ Route::middleware('api')->group(function () {
 
 //    places api
 
-    Route::get('/showStocks/{id}', [StockController::class, 'showStocks'])->middleware(Users::class)->middleware(places_power::class);
-    Route::post('/addStocks', [StockController::class, 'addStocks'])->middleware(Users::class)->middleware(places_power::class);
-    Route::get('/deleteStocks/{id}', [StockController::class, 'deleteStocks'])->middleware(Users::class)->middleware(places_power::class);
-    Route::post('/changeStocks/{id}', [StockController::class, 'changeStocks'])->middleware(Users::class)->middleware(places_power::class);
+    Route::get('/showStocks/{id}', [StockController::class, 'showStocks'])->middleware(Users::class)->middleware(stock_power::class);
+    Route::post('/addStocks', [StockController::class, 'addStocks'])->middleware(Users::class)->middleware(stock_power::class);
+    Route::get('/deleteStocks/{id}', [StockController::class, 'deleteStocks'])->middleware(Users::class)->middleware(stock_power::class);
+    Route::post('/changeStocks/{id}', [StockController::class, 'changeStocks'])->middleware(Users::class)->middleware(stock_power::class);
 
 //    Cashes api
 
@@ -321,10 +322,10 @@ Route::middleware('api')->group(function () {
     Route::post('/changeTrialBalance/{id}', [BalancesController::class, 'changeTrialBalance'])->middleware(Users::class)->middleware(balance_power::class);
     Route::get('/deleteTrialBalance/{id}', [BalancesController::class, 'deleteTrialBalance'])->middleware(Users::class)->middleware(balance_power::class);
 
-    Route::get('/showClientsBalance/{id}', [BalancesController::class, 'showClientsBalance'])->middleware(Users::class)->middleware(balance_power::class);
-    Route::post('/addClientsBalance', [BalancesController::class, 'addClientsBalance'])->middleware(Users::class)->middleware(balance_power::class);
-    Route::post('/changeClientsBalance/{id}', [BalancesController::class, 'changeClientsBalance'])->middleware(Users::class)->middleware(balance_power::class);
-    Route::get('/deleteClientsBalance/{id}', [BalancesController::class, 'deleteClientsBalance'])->middleware(Users::class)->middleware(balance_power::class);
+    Route::get('/showClientsBalance/{id}', [BalancesController::class, 'showClientsBalance'])->middleware(Users::class)->middleware(clients_power::class);
+    Route::post('/addClientsBalance', [BalancesController::class, 'addClientsBalance'])->middleware(Users::class)->middleware(clients_power::class);
+    Route::post('/changeClientsBalance/{id}', [BalancesController::class, 'changeClientsBalance'])->middleware(Users::class)->middleware(clients_power::class);
+    Route::get('/deleteClientsBalance/{id}', [BalancesController::class, 'deleteClientsBalance'])->middleware(Users::class)->middleware(clients_power::class);
 
 //    feedback api
 
