@@ -1,0 +1,1194 @@
+[
+ {
+  "accounts_code": 1,
+  "accounts_name": "الأصول",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 1,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 11,
+  "accounts_name": "أصول غير متداوله",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 111,
+  "accounts_name": "أراضي ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 111000,
+  "accounts_name": "أراضي ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 112,
+  "accounts_name": "سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 112000,
+  "accounts_name": "سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 113,
+  "accounts_name": "مباني",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 113000,
+  "accounts_name": "مباني",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 114,
+  "accounts_name": "أثاث وتجهيزات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 114000,
+  "accounts_name": "أثاث وتجهيزات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 12,
+  "accounts_name": "أصول متداوله",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 121,
+  "accounts_name": "نقديه وما في حكمها ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 121000,
+  "accounts_name": "نقديه",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 121003,
+  "accounts_name": "بنك البركة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 122,
+  "accounts_name": "مدينون تجاريون",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 122000,
+  "accounts_name": "العملاء",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 123,
+  "accounts_name": "المخزون",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 123000,
+  "accounts_name": "مخزون ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 124,
+  "accounts_name": "مصاريف مدفوعه مقدما",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 124000,
+  "accounts_name": "مصاريف مدفوعه مقدما",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 125,
+  "accounts_name": "مدينون متنوعون وارصده مدينه اخرى",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 125000,
+  "accounts_name": "ضريبة القيمة المضافة للمدخلات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 125001,
+  "accounts_name": "سلف للموظفين",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 125002,
+  "accounts_name": "دفعات مقدمه للموردين",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 125003,
+  "accounts_name": "خطابات ضمان بنكيه",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 125004,
+  "accounts_name": "مدينون آخرون",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 126,
+  "accounts_name": "المستحق من أطراف ذات علاقة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 127,
+  "accounts_name": "إيرادات مستحقة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 127000,
+  "accounts_name": "إيرادات مستحقة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 2,
+  "accounts_name": "الالتزامات وحقوق الملكيه",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 1,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 21,
+  "accounts_name": "حقوق الملكيه",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 211,
+  "accounts_name": "حقوق الملكيه",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 211000,
+  "accounts_name": "رأس المال",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 211001,
+  "accounts_name": "احتياطي نظامي",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 211002,
+  "accounts_name": "أرباح سنوات سابقه",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 211003,
+  "accounts_name": "أرباح وخسائر العام",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 22,
+  "accounts_name": "النزامات غير متداوله",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 221,
+  "accounts_name": "مخصص سيارات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 221000,
+  "accounts_name": "مخصص سيارات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 222,
+  "accounts_name": "مخصص مباني",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 222000,
+  "accounts_name": "مخصص مباني",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 223,
+  "accounts_name": "مخصص أثاث وتجهيزات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 223000,
+  "accounts_name": "مخصص أثاث وتجهيزات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 224,
+  "accounts_name": "مخصصات اخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 224000,
+  "accounts_name": "مخصص ديون مشكوك في تحصيلها",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 224001,
+  "accounts_name": "مخصص بضاعة راكدة أو تالفة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 224002,
+  "accounts_name": "مخصص مكافأة ترك الخدمة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 224003,
+  "accounts_name": "مخصص اهلاك تحسينات علي الماجور",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 225,
+  "accounts_name": "قروض طويله الاجل",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 225000,
+  "accounts_name": "قروض طويله الاجل",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 23,
+  "accounts_name": "النزامات  متداوله",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 231,
+  "accounts_name": "دائنون تجاريون",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 231000,
+  "accounts_name": "موردون ",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 232,
+  "accounts_name": "قروض قصيره الاجل",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 232000,
+  "accounts_name": "قروض قصيره الاجل",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233,
+  "accounts_name": "مصاريف مستحقة وارصده دائنه اخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 233000,
+  "accounts_name": "أجور مستحقة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233001,
+  "accounts_name": "اجازات مستحقة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233002,
+  "accounts_name": "تذاكر مستحقة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233003,
+  "accounts_name": "مصاريف مستحقة أخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233004,
+  "accounts_name": "ضريبة القيمة المضافة للمخرجات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233005,
+  "accounts_name": "إيرادات مدفوعه مقدما",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233006,
+  "accounts_name": "مصلحة الزكاة والضريبة - ضريبة القيمة المضافة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233007,
+  "accounts_name": "مصلحة الزكاة والضريبة - الزكاة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 233008,
+  "accounts_name": "مصلحة الزكاة والضريبة - ضريبة الرفاهية",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 234,
+  "accounts_name": "المستحق إلى أطراف ذات علاقة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Balance Sheet",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 3,
+  "accounts_name": "مصروفات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 1,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 31,
+  "accounts_name": "تكلفة الإيرادات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 311,
+  "accounts_name": "تكلفة البضاعة المباعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 311000,
+  "accounts_name": "تكلفة البضاعة المباعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 311001,
+  "accounts_name": "مردودات المشتريات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 32,
+  "accounts_name": "مصاريف إدارية وعمومية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 321,
+  "accounts_name": "رواتب وما في حكمها",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 321000,
+  "accounts_name": "راتب أساسي",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321001,
+  "accounts_name": "بدل مواصلات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321002,
+  "accounts_name": "بدل سكن",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321003,
+  "accounts_name": "أجور إضافية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321004,
+  "accounts_name": "مستقطعات من الأجور",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321005,
+  "accounts_name": "أجور عمالة مؤقتة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321006,
+  "accounts_name": "مصروف الاجازة ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321007,
+  "accounts_name": "مصروف التذاكر",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321008,
+  "accounts_name": "مصروف مكافأة ترك الخدمة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 321009,
+  "accounts_name": "تأمينات إجتماعية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 322,
+  "accounts_name": "مصاريف سيارات وإنتقالات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 322000,
+  "accounts_name": "وقود وزيوت سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 322001,
+  "accounts_name": "صيانة سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 322002,
+  "accounts_name": "مصاريف إنتقالات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 323,
+  "accounts_name": "إهلاك سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 323000,
+  "accounts_name": "إهلاك سيارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 324,
+  "accounts_name": "إهلاك مباني",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 324000,
+  "accounts_name": "إهلاك مباني",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 325,
+  "accounts_name": "إهلاك أثاث وتجهيزات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 325000,
+  "accounts_name": "إهلاك أثاث وتجهيزات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 325006,
+  "accounts_name": "إهلاك تحسينات على المأجور",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 326,
+  "accounts_name": "إيجارات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 326000,
+  "accounts_name": "مصاريف إيجارات واشتراكات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 327,
+  "accounts_name": "مصاريف حكومية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 327000,
+  "accounts_name": "تصديقات وتراخيص",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 327001,
+  "accounts_name": "رسوم إقامات ومكتب عمل",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 327002,
+  "accounts_name": "مصاريف حكومية أخرى",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 328,
+  "accounts_name": "كهرباء ومياه واتصالات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 328000,
+  "accounts_name": "كهرباء",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 328001,
+  "accounts_name": "مياه",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 328002,
+  "accounts_name": "إتصالات وانترنت",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329,
+  "accounts_name": "مصاريف إدارية وعمومية أخرى",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 329000,
+  "accounts_name": "مصاريف بنكية متنوعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329001,
+  "accounts_name": "مصروف بضاعة راكدة أو تالفة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329002,
+  "accounts_name": "مصروف ديون معدومة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329003,
+  "accounts_name": "مصروف الزكاة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329004,
+  "accounts_name": "مصاريف نثرية متنوعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329005,
+  "accounts_name": "مصاريف بوفيه وضيافة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329006,
+  "accounts_name": "مصروف أدوات مكتبية ومطبوعات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329007,
+  "accounts_name": "مصروف بضاعة مسروقة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329008,
+  "accounts_name": "مصروف نقد مسروق",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329009,
+  "accounts_name": "مصروف نقد تالف",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329010,
+  "accounts_name": "مصروف نقد ضائع",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329011,
+  "accounts_name": "رسوم تحويل",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 329012,
+  "accounts_name": "مصروف مسامحة دين",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 33,
+  "accounts_name": "مصاريف بيعية وتسويقية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 331,
+  "accounts_name": "مصاريف بيعية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 331000,
+  "accounts_name": "عمولة مبيعات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 331001,
+  "accounts_name": "نقل وشحن للمبيعات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 331002,
+  "accounts_name": "مصاريف بيعية أخرى",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 332,
+  "accounts_name": "مصاريف تسويقية",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 332000,
+  "accounts_name": "دعاية وإعلان",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 332001,
+  "accounts_name": "علاقات عامة ",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 332002,
+  "accounts_name": "تكلفة مناقصات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 332003,
+  "accounts_name": "هدايا أو خصوم ممنوحة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 332004,
+  "accounts_name": "مصاريف تسويقية أخرى",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 34,
+  "accounts_name": "مصروفات أخرى متنوعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 341,
+  "accounts_name": "مصروفات أخرى متنوعة",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 341000,
+  "accounts_name": "مصروف تغير سعر الصرف",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 341001,
+  "accounts_name": "خسائر بيع ممتلكات ومعدات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 4,
+  "accounts_name": "ايرادات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 1,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 41,
+  "accounts_name": "إيرادات النشاط",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 411,
+  "accounts_name": "مبيعات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 412,
+  "accounts_name": "مردودات مبيعات",
+  "accounts_nature": "Debit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 413,
+  "accounts_name": "ايراد شحن بضاعة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 414,
+  "accounts_name": "إيرادات إيجارات واشتراكات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 415,
+  "accounts_name": "إيراد استشارات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 416,
+  "accounts_name": "إيراد دعاية وإعلان",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 42,
+  "accounts_name": "إيرادات أخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 2,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 421,
+  "accounts_name": "إيرادات أخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 3,
+  "accounts_is_sub": 0
+ },
+ {
+  "accounts_code": 421000,
+  "accounts_name": "ارباح بيع ممتلكات ومعدات",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 421001,
+  "accounts_name": "هدايا أو خصوم مكتسبة",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 421002,
+  "accounts_name": "إيراد إعدام دين مورد",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 421003,
+  "accounts_name": "إيراد تغير سعر الصرف",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 421004,
+  "accounts_name": "إيرادات أخرى",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ },
+ {
+  "accounts_code": 421005,
+  "accounts_name": "إيراد مسامحة دين",
+  "accounts_nature": "Credit",
+  "accounts_statement": "Income Statement",
+  "accounts_level": 4,
+  "accounts_is_sub": 1
+ }
+]

@@ -1,0 +1,1101 @@
+[
+  {
+    "name":"الأصول",
+    "code":"1",
+    "level":1,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"أصول غير متداوله",
+    "code":"11",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"أراضي",
+    "code":"111",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"أراضي",
+    "code":"111000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"سيارات",
+    "code":"112",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"سيارات",
+    "code":"112000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مباني",
+    "code":"113",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مباني",
+    "code":"113000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"أثاث وتجهيزات",
+    "code":"114",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"أثاث وتجهيزات",
+    "code":"114000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"أصول متداوله",
+    "code":"12",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"نقديه وما في حكمها",
+    "code":"121",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"نقديه",
+    "code":"121000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"بنك البركة",
+    "code":"121003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مدينون تجاريون",
+    "code":"122",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"العملاء",
+    "code":"122000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"المخزون",
+    "code":"123",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مخزون",
+    "code":"123000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف مدفوعه مقدما",
+    "code":"124",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف مدفوعه مقدما",
+    "code":"124000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مدينون متنوعون وارصده مدينه اخرى",
+    "code":"125",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"ضريبة القيمة المضافة للمدخلات",
+    "code":"125000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"سلف للموظفين",
+    "code":"125001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"دفعات مقدمه للموردين",
+    "code":"125002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"خطابات ضمان بنكيه",
+    "code":"125003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مدينون آخرون",
+    "code":"125004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"المستحق من أطراف ذات علاقة",
+    "code":"126",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"المستحق من الشريك حسين",
+    "code":"126000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"المستحق من الشريك حمزة بكورة",
+    "code":"126000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"المستحق من الشريك حمزة صوان",
+    "code":"126000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"المستحق من الشريك عامر الدلب",
+    "code":"126001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إيرادات مستحقة",
+    "code":"127",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"إيرادات مستحقة",
+    "code":"127000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"الالتزامات وحقوق الملكيه",
+    "code":"2",
+    "level":1,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"حقوق الملكيه",
+    "code":"21",
+    "level":2,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"حقوق الملكيه",
+    "code":"211",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"رأس المال",
+    "code":"211000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"احتياطي نظامي",
+    "code":"211001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"أرباح سنوات سابقه",
+    "code":"211002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"أرباح وخسائر العام",
+    "code":"211003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"النزامات غير متداوله",
+    "code":"22",
+    "level":2,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص سيارات",
+    "code":"221",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص سيارات",
+    "code":"221000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص مباني",
+    "code":"222",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص مباني",
+    "code":"222000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص أثاث وتجهيزات",
+    "code":"223",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص أثاث وتجهيزات",
+    "code":"223000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصصات اخرى",
+    "code":"224",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص ديون مشكوك في تحصيلها",
+    "code":"224000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص بضاعة راكدة أو تالفة",
+    "code":"224001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص مكافأة ترك الخدمة",
+    "code":"224002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مخصص اهلاك تحسينات علي الماجور",
+    "code":"224003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"قروض طويله الاجل",
+    "code":"225",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"قروض طويله الاجل",
+    "code":"225000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"النزامات  متداوله",
+    "code":"23",
+    "level":2,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"دائنون تجاريون",
+    "code":"231",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"موردون",
+    "code":"231000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"قروض قصيره الاجل",
+    "code":"232",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"قروض قصيره الاجل",
+    "code":"232000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصاريف مستحقة وارصده دائنه اخرى",
+    "code":"233",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"أجور مستحقة",
+    "code":"233000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"اجازات مستحقة",
+    "code":"233001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"تذاكر مستحقة",
+    "code":"233002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصاريف مستحقة أخرى",
+    "code":"233003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"ضريبة القيمة المضافة للمخرجات",
+    "code":"233004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات مدفوعه مقدما",
+    "code":"233005",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصلحة الزكاة والضريبة - ضريبة القيمة المضافة",
+    "code":"233006",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصلحة الزكاة والضريبة - الزكاة",
+    "code":"233007",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصلحة الزكاة والضريبة - ضريبة الرفاهية",
+    "code":"233008",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"المستحق إلى أطراف ذات علاقة",
+    "code":"234",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"المستحق إلى الشريك حمزة صوان",
+    "code":"234000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"المستحق إلى الشريك حسين",
+    "code":"234000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"المستحق إلى الشريك حمزة بكورة",
+    "code":"234000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"المستحق إلى الشريك عامر الدلب",
+    "code":"234001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصروفات",
+    "code":"3",
+    "level":1,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"تكلفة الإيرادات",
+    "code":"31",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"تكلفة البضاعة المباعة",
+    "code":"311",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"تكلفة البضاعة المباعة",
+    "code":"311000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مردودات المشتريات",
+    "code":"311001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مصاريف إدارية وعمومية",
+    "code":"32",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"رواتب وما في حكمها",
+    "code":"321",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"راتب أساسي",
+    "code":"321000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"بدل مواصلات",
+    "code":"321001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"بدل سكن",
+    "code":"321002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"أجور إضافية",
+    "code":"321003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مستقطعات من الأجور",
+    "code":"321004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"أجور عمالة مؤقتة",
+    "code":"321005",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف الاجازة",
+    "code":"321006",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف التذاكر",
+    "code":"321007",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف مكافأة ترك الخدمة",
+    "code":"321008",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"تأمينات إجتماعية",
+    "code":"321009",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف سيارات وإنتقالات",
+    "code":"322",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"وقود وزيوت سيارات",
+    "code":"322000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"صيانة سيارات",
+    "code":"322001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف إنتقالات",
+    "code":"322002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك سيارات",
+    "code":"323",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك سيارات",
+    "code":"323000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك مباني",
+    "code":"324",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك مباني",
+    "code":"324000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك أثاث وتجهيزات",
+    "code":"325",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك أثاث وتجهيزات",
+    "code":"325000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إهلاك تحسينات على المأجور",
+    "code":"325006",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إيجارات",
+    "code":"326",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف إيجارات واشتراكات",
+    "code":"326000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف حكومية",
+    "code":"327",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"تصديقات وتراخيص",
+    "code":"327000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"رسوم إقامات ومكتب عمل",
+    "code":"327001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف حكومية أخرى",
+    "code":"327002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"كهرباء ومياه واتصالات",
+    "code":"328",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"كهرباء",
+    "code":"328000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مياه",
+    "code":"328001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"إتصالات وانترنت",
+    "code":"328002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف إدارية وعمومية أخرى",
+    "code":"329",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف بنكية متنوعة",
+    "code":"329000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف بضاعة راكدة أو تالفة",
+    "code":"329001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف ديون معدومة",
+    "code":"329002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف الزكاة",
+    "code":"329003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف نثرية متنوعة",
+    "code":"329004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف بوفيه وضيافة",
+    "code":"329005",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف أدوات مكتبية ومطبوعات",
+    "code":"329006",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف بضاعة مسروقة",
+    "code":"329007",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف نقد مسروق",
+    "code":"329008",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف نقد تالف",
+    "code":"329009",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف نقد ضائع",
+    "code":"329010",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"رسوم تحويل",
+    "code":"329011",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف مسامحة دين",
+    "code":"329012",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف بيعية وتسويقية",
+    "code":"33",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف بيعية",
+    "code":"331",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"عمولة مبيعات",
+    "code":"331000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"نقل وشحن للمبيعات",
+    "code":"331001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف بيعية أخرى",
+    "code":"331002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف تسويقية",
+    "code":"332",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"دعاية وإعلان",
+    "code":"332000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"علاقات عامة",
+    "code":"332001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"تكلفة مناقصات",
+    "code":"332002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"هدايا أو خصوم ممنوحة",
+    "code":"332003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصاريف تسويقية أخرى",
+    "code":"332004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروفات أخرى متنوعة",
+    "code":"34",
+    "level":2,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروفات أخرى متنوعة",
+    "code":"341",
+    "level":3,
+    "is_sub":false,
+    "nature":"Debit"
+  },
+  {
+    "name":"مصروف تغير سعر الصرف",
+    "code":"341000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"خسائر بيع ممتلكات ومعدات",
+    "code":"341001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"ايرادات",
+    "code":"4",
+    "level":1,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات النشاط",
+    "code":"41",
+    "level":2,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"مبيعات",
+    "code":"411",
+    "level":3,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"مردودات مبيعات",
+    "code":"412",
+    "level":3,
+    "is_sub":true,
+    "nature":"Debit"
+  },
+  {
+    "name":"ايراد شحن بضاعة",
+    "code":"413",
+    "level":3,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات إيجارات واشتراكات",
+    "code":"414",
+    "level":3,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيراد استشارات",
+    "code":"415",
+    "level":3,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيراد دعاية وإعلان",
+    "code":"416",
+    "level":3,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات أخرى",
+    "code":"42",
+    "level":2,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات أخرى",
+    "code":"421",
+    "level":3,
+    "is_sub":false,
+    "nature":"Credit"
+  },
+  {
+    "name":"ارباح بيع ممتلكات ومعدات",
+    "code":"421000",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"هدايا أو خصوم مكتسبة",
+    "code":"421001",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيراد إعدام دين مورد",
+    "code":"421002",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيراد تغير سعر الصرف",
+    "code":"421003",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيرادات أخرى",
+    "code":"421004",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  },
+  {
+    "name":"إيراد مسامحة دين",
+    "code":"421005",
+    "level":4,
+    "is_sub":true,
+    "nature":"Credit"
+  }
+]
