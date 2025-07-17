@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
 
-            $table->float('value',10,3);
-            $table->float('paid',10,3);
+            $table->float('value',15,6);
+            $table->float('paid',15,6);
             $table->string('description')->nullable();
             $table->boolean('is_debts')->default(false);
             $table->date('pay_time')->nullable();

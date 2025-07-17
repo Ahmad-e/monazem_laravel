@@ -78,7 +78,8 @@ Route::middleware('api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(Users::class);
     Route::post('/updateUser', [AuthController::class, 'updateUser'])->middleware(Users::class);
 
-    Route::post('/create_account', [AuthController::class, 'create_user_account'])->middleware(Users::class)->middleware(accounts_power::class);
+    Route::post('/create_account', [AuthController::class, 'create_account'])->middleware(Users::class)->middleware(accounts_power::class);
+    Route::get('/showAccountById/{id}', [AuthController::class, 'showAccountById'])->middleware(Users::class)->middleware(accounts_power::class);
     Route::get('/show_user_Accounts', [AuthController::class, 'showAccounts'])->middleware(Users::class)->middleware(accounts_power::class);
     Route::post('/update_user_Account/{id}', [AuthController::class, 'updateAccount'])->middleware(Users::class)->middleware(accounts_power::class);
     Route::post('/create_admin_account' , [AuthController::class, 'create_admin_account'])->middleware(Admins::class);
@@ -92,15 +93,14 @@ Route::middleware('api')->group(function () {
 
 //    branches api
 
-    Route::get('/setMainBranch/{id}', [BranchController::class, 'setMainBranch'])->middleware(Users::class)->middleware(branches_power::class);
+    Route::get('/showBranches', [BranchController::class, 'showAllBranches'])->middleware(Users::class)->middleware(branches_power::class);
     Route::post('/addBranch', [BranchController::class, 'addBranch'])->middleware(Users::class)->middleware(branches_power::class);
     Route::post('/changeBranch/{id}', [BranchController::class, 'changeBranch'])->middleware(Users::class)->middleware(branches_power::class);
     Route::get('/setMainBranch/{id}', [BranchController::class, 'setMainBranch'])->middleware(Users::class)->middleware(branches_power::class);
 
 //    employee api
     Route::post('/addEmployee', [EmployeeController::class, 'addEmployee'])->middleware(Users::class)->middleware(employee_power::class) ;
-    Route::get('/getEmployeesByBusiness', [EmployeeController::class, 'getEmployeesByBusinessId'])->middleware(Users::class)->middleware(employee_power::class);
-    Route::get('/getEmployeesByBranch/{branchId}', [EmployeeController::class, 'getEmployeesByBranchId'])->middleware(Users::class)->middleware(employee_power::class);
+    Route::get('/getEmployees', [EmployeeController::class, 'getEmployees'])->middleware(Users::class)->middleware(employee_power::class);
     Route::post('/changeEmployees/{id}', [EmployeeController::class, 'updateEmployee'])->middleware(Users::class)->middleware(employee_power::class);
     Route::get('/toggleBlockedEmployees/{id}', [EmployeeController::class, 'toggleBlockedEmployee'])->middleware(Users::class)->middleware(employee_power::class);
 
@@ -119,7 +119,7 @@ Route::middleware('api')->group(function () {
     Route::post('/updateEmployeesSalariesAdvance/{id}', [EmployeeController::class, 'updateEmployeesSalariesAdvance'])->middleware(Users::class)->middleware(employee_data_power::class);
     Route::get('/deleteEmployeesSalariesAdvance/{id}', [EmployeeController::class, 'deleteEmployeesSalariesAdvance'])->middleware(Users::class)->middleware(employee_data_power::class);
 
-    Route::get('/getAllEmployeesSalariesAdvanceWithPayments/{id}', [EmployeeController::class, 'getAllEmployeesSalariesAdvanceWithPayments'])->middleware(Users::class)->middleware(employee_data_power::class);
+    Route::get('/getEmployeesSalariesAdvancePayments/{id}', [EmployeeController::class, 'getEmployeesSalariesAdvancePayments'])->middleware(Users::class)->middleware(employee_data_power::class);
     Route::post('/addEmployeesSalariesAdvancePayments', [EmployeeController::class, 'addEmployeesSalariesAdvancePayments'])->middleware(Users::class)->middleware(employee_data_power::class);
     Route::get('/deleteEmployeesSalariesAdvancePayments/{id}', [EmployeeController::class, 'deleteEmployeesSalariesAdvancePayments'])->middleware(Users::class)->middleware(employee_data_power::class);
 
@@ -135,7 +135,7 @@ Route::middleware('api')->group(function () {
 
 //   power api
     Route::post('/addUserPower', [PowerController::class, 'addUserPower'])->middleware(Users::class)->middleware(access_power::class);
-    Route::get('/showUser_Power', [PowerController::class, 'showUser_Power'])->middleware(Users::class)->middleware(access_power::class);
+    Route::get('/showUser_Power/{id}', [PowerController::class, 'showUser_Power'])->middleware(Users::class)->middleware(access_power::class);
     Route::post('/getPowers', [PowerController::class, 'getPowers']);
     Route::post('/deleteUser_Power', [PowerController::class, 'deleteUserPower'])->middleware(Users::class)->middleware(access_power::class);
     Route::post('/addMultiplePowers', [PowerController::class, 'addMultiplePowers'])->middleware(Admins::class);
@@ -176,9 +176,9 @@ Route::middleware('api')->group(function () {
 
 //    Expenses api
     Route::post('/addExpense', [ExpencesController::class, 'addExpense'])->middleware(Users::class)->middleware(expencess_power::class);
+    Route::post('/changeExpense/{id}', [ExpencesController::class, 'changeExpense'])->middleware(Users::class)->middleware(expencess_power::class);
     Route::get('/deleteExpense/{id}', [ExpencesController::class, 'deleteExpense'])->middleware(Users::class)->middleware(expencess_power::class);
-    Route::get('/showExpensesByBusiness', [ExpencesController::class, 'showExpensesByBusiness'])->middleware(Users::class)->middleware(expencess_power::class);
-    Route::get('/showExpensesByBranches/{id}', [ExpencesController::class, 'showExpensesByBranches'])->middleware(Users::class)->middleware(expencess_power::class);
+    Route::get('/showExpenses', [ExpencesController::class, 'showExpenses'])->middleware(Users::class)->middleware(expencess_power::class);
 
     Route::get('/showExpensePayment/{id}', [ExpencesController::class, 'showExpensePayment'])->middleware(Users::class)->middleware(expencess_power::class);
     Route::post('/addExpensePayment', [ExpencesController::class, 'addExpensePayment'])->middleware(Users::class)->middleware(expencess_power::class);
@@ -204,9 +204,9 @@ Route::middleware('api')->group(function () {
 
 //    Revenues api
     Route::post('/addRevenue', [RevenuesController::class, 'addRevenue'])->middleware(Users::class)->middleware(revenues_power::class);
+    Route::post('/changeRevenue/{id}', [RevenuesController::class, 'changeRevenue'])->middleware(Users::class)->middleware(revenues_power::class);
     Route::get('/deleteRevenue/{id}', [RevenuesController::class, 'deleteRevenue'])->middleware(Users::class)->middleware(revenues_power::class);
-    Route::get('/showRevenuesByBusiness', [RevenuesController::class, 'showRevenuesByBusiness'])->middleware(Users::class)->middleware(revenues_power::class);
-    Route::get('/showRevenuesByBranches/{id}', [RevenuesController::class, 'showRevenuesByBranches'])->middleware(Users::class)->middleware(revenues_power::class);
+    Route::get('/showRevenues', [RevenuesController::class, 'showRevenues'])->middleware(Users::class)->middleware(revenues_power::class);
 
     Route::post('/addRevenuePayment', [RevenuesController::class, 'addRevenuePayment'])->middleware(Users::class)->middleware(revenues_power::class);
     Route::get('/deleteRevenuePayment/{id}', [RevenuesController::class, 'deleteRevenuePayment'])->middleware(Users::class)->middleware(revenues_power::class);
@@ -234,7 +234,12 @@ Route::middleware('api')->group(function () {
     Route::get('/deleteProductFavorite/{id}', [ProductController::class, 'deleteProductFavorite'])->middleware(Users::class);
 
     Route::post('/addProductsPrices', [ProductController::class, 'addProductsPrices'])->middleware(Users::class)->middleware(product_power::class);
+    Route::post('/changeProductsPrices/{id}', [ProductController::class, 'changeProductsPrices'])->middleware(Users::class)->middleware(product_power::class);
     Route::get('/showProductsPrices/{id}', [ProductController::class, 'showProductsPrices'])->middleware(Users::class)->middleware(product_power::class);
+
+    Route::post('/addProductCode', [ProductController::class, 'addProductCode'])->middleware(Users::class)->middleware(product_data_power::class);
+    Route::post('/changeProductCode/{id}', [ProductController::class, 'changeProductCode'])->middleware(Users::class)->middleware(product_data_power::class);
+    Route::get('/showProductCode/{id}', [ProductController::class, 'showProductCode'])->middleware(Users::class)->middleware(product_data_power::class);
 
     Route::get('/showProductMovesPlaces/{id}', [ProductController::class, 'showProductMovesPlaces'])->middleware(Users::class)->middleware(product_data_power::class);
     Route::post('/addMoveProduct', [ProductController::class, 'AddMoveProduct'])->middleware(Users::class)->middleware(product_data_power::class);
@@ -286,6 +291,7 @@ Route::middleware('api')->group(function () {
     Route::post('/addAccount', [AccountsController::class, 'addAccount'])->middleware(Users::class)->middleware(partner_Accounts_power::class);
     Route::post('/changeAccounts/{id}', [AccountsController::class, 'changeAccounts'])->middleware(Users::class)->middleware(partner_Accounts_power::class);
     Route::get('/deleteAccounts/{id}', [AccountsController::class, 'deleteAccounts'])->middleware(Users::class)->middleware(partner_Accounts_power::class);
+    Route::get('/importAccountTree/{id}', [AccountsController::class, 'importAccountTree'])->middleware(Users::class)->middleware(partner_Accounts_power::class);
 
 //    Taxes api
 

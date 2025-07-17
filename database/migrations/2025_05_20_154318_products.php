@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('blocked_product')->default(false);
             $table->longText('img_url' )->nullable();
             $table->enum('categories', ['product', 'service']);
-
+            $table->boolean('star')->default(false);
 
             $table->foreignId('business_id')
                 ->constrained('businesses')

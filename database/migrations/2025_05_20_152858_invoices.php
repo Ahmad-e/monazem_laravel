@@ -17,16 +17,17 @@ return new class extends Migration
             $table->enum('type', ['sell', 'buy', 'buyRefund', 'sellRefund']);
             $table->enum('payment_status', ['unpaid', 'partial', 'paid']);
             $table->string('note')->nullable();
-            $table->float('unDiscounted_amount',10,3);
-            $table->float('discounted_amount',10,3);
-            $table->float('tax_amount',10,3);
-            $table->float('shipping_cost',10,3);
-            $table->float('refunded_amount',8,3);
-            $table->float('affect_refund',8,3);
-            $table->float('paid_amount',10,3);
-            $table->float('amount_in_base',8,3)->nullable();
-            $table->float('shipping_cost_in_base',8,3)->nullable();
+            $table->float('unDiscounted_amount',15,6);
+            $table->float('discounted_amount',15,6);
+            $table->float('tax_amount',15,6);
+            $table->float('shipping_cost',15,6);
+            $table->float('refunded_amount',15,6);
+            $table->float('affect_refund',15,6);
+            $table->float('paid_amount',15,6);
+            $table->float('amount_in_base',15,6)->nullable();
+            $table->float('shipping_cost_in_base',15,6)->nullable();
             $table->boolean('blocked')->default(false);
+            $table->boolean('star')->default(false);
 
             $table->date('date')->nullable();
 

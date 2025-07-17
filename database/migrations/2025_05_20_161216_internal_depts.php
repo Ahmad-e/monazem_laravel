@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('note')->nullable();
 
-            $table->float('total',10,3);
-            $table->float('paid',10,3);
-            $table->float('remaining',10,3);
+            $table->float('total',15,6);
+            $table->float('paid',15,6);
+            $table->float('remaining',15,6);
 
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

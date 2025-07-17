@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->boolean('active')->default(true);
-            $table->float('unit_cost');
+            $table->float('unit_cost',15,6);
             $table->date('expiration_date');
 
 

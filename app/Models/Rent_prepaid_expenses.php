@@ -21,4 +21,8 @@ class Rent_prepaid_expenses extends Model
         'creator_id',
         'currency_id',
     ];
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

@@ -11,28 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('revenues_payments', function (Blueprint $table) {
-            $table->id();
+        Schema::create('revenues_payments',
+            function (Blueprint $table) {
+                $table->id();
 
-            $table->string('note')->nullable();
-            $table->float('value',10,3);
-            $table->date('date')->nullable();
+                $table->string('note')->nullable();
+                $table->float('value', 15, 6);
+                $table->date('date')->nullable();
 
-            $table->foreignId('revenues_id')
-                ->nullable()
-                ->constrained('revenues')
-                ->onDelete('cascade');
+                $table->foreignId('revenues_id')
+                    ->nullable()
+                    ->constrained('revenues')
+                    ->onDelete('cascade');
 
-                    $table->foreignId('creator_id')
-                        ->constrained('users')
-                        ->onDelete('cascade');
+                $table->foreignId('creator_id')
+                    ->constrained('users')
+                    ->onDelete('cascade');
 
-                    $table->foreignId('currency_id')
-                        ->constrained('currencies')
-                        ->onDelete('cascade');
+                $table->foreignId('currency_id')
+                    ->constrained('currencies')
+                    ->onDelete('cascade');
 
-                    $table->timestamps();
-                });
+                $table->timestamps();
+            });
     }
 
     /**

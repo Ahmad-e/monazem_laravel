@@ -17,7 +17,7 @@ class access_power
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!(Auth::user()->overPower)){
+        if(!(Auth::user()->overPower || Auth::user()->is_business_creator  )){
             $test = Powers_users::where('user_id',Auth::user()->id)->where('power_id',5)->first();
             if(!$test)
                 return response()->json([

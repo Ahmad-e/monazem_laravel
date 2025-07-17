@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('symbol')->nullable();
             $table->string('name_en')->nullable();
             $table->string('name_ar')->nullable();
-            $table->float('exchange_rate_to_dollar',10,10)->nullable();
+            $table->float('exchange_rate_to_dollar',12,10)->nullable();
             $table->boolean('blocked_currency')->default(false);
             $table->timestamps();
 

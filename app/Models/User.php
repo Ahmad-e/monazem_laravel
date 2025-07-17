@@ -28,7 +28,8 @@ class User extends Authenticatable implements JWTSubject
         'type_id',
         'business_id',
         'branch_id',
-        'overPower'
+        'overPower',
+        'is_business_creator'
     ];
 
     /**

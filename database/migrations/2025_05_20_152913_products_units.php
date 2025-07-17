@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('group_ar')->nullable();
             $table->string('group_en')->nullable();
             $table->string('conversion_factor')->nullable();
+            $table->boolean('blocked_unite')->default(false);
 
             $table->foreignId('business_id')
                 ->constrained('businesses')

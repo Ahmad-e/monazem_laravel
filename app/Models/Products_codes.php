@@ -4,24 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products_prices extends Model
+class Products_codes extends Model
 {
     protected $fillable = [
-        'price',
-        'note',
-        'categories',
-        'partner_ar',
-        'partner_en',
+        'value',
+        'date',
         'product_id',
         'creator_id',
-        'currency_id',
     ];
     public function Product(){
         return $this->belongsTo(Products::class, 'product_id');
-    }
-
-    public function currency()
-    {
-        return $this->belongsTo(Currencies::class);
     }
 }

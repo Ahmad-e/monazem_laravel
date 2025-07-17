@@ -102,30 +102,9 @@ class TaxesController extends Controller
     }
 
     public function showProductTaxesByBranchId($id){
-        $data = Taxes_products::where('taxes_products.branch_id' , $id)
-            ->join("products" , 'products.id' ,'taxes_products.product_id' )
-            ->join("taxes" , 'taxes.id' ,'taxes_products.tax_id' )
-            ->get([
-                "taxes_products.id as taxes_products_id",
-                "taxes_products.tax_id",
-                "taxes_products.product_id",
-                "taxes_products.branch_id",
-                "taxes_products.creator_id",
-                "taxes_products.created_at",
-                "taxes_products.updated_at",
-                "taxes.name as tax_name",
-                "products.name as product_name",
-                "code as product_code",
-                "blocked_product",
-                "blocked as blocked_tax",
-                "img_url",
-                "categories",
-                "products.business_id",
-                "type as tax_type",
-                "level",
-
-                "rate"
-            ]);
+        $data = Taxes_products::where('branch_id' , $id)
+            ->with(['taxes','products'])
+            ->get();
         return response()->json([
             'state' => 200,
             'data' => $data,

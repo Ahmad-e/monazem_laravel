@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->boolean('is_base')->default(false);
-            $table->float('near_factor');
+            $table->float('near_factor',15,6);
             $table->float('manual_exchange')->nullable();
 
             $table->foreignId('business_id')

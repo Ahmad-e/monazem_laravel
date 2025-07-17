@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('rent_prepaid_revenues', function (Blueprint $table) {
             $table->id();
-            $table->float('amount');
-            $table->float('book_value');
-            $table->float('amount_in_base')->nullable();
+            $table->float('amount',15,6);
+            $table->float('book_value',15,6);
+            $table->float('amount_in_base',15,6)->nullable();
             $table->integer('month_count');
             $table->string('name');
             $table->longText('note')->nullable();

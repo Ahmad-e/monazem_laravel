@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('note')->nullable();
-            $table->float('value',10,3);
-            $table->float('remaining',10,3);
+            $table->float('value',15,6);
+            $table->float('remaining',15,6);
             $table->date('date')->nullable();
 
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('blocked')->default(false);
+            $table->boolean('is_business_creator')->default(false);
             $table->boolean('overPower')->default(true);
             $table->integer('business_id')->nullable();
             $table->integer('branch_id')->nullable();

@@ -14,76 +14,20 @@ use Illuminate\Support\Facades\Auth;
 
 class RevenuesController extends Controller
 {
-    public function showRevenuesByBusiness(){
+    public function showRevenuesByBusiness($id){
+        $data = Revenues::where('business_id',$id)
+            ->with(['payments', 'currency'])->get();
+
+        return response()->json([
+            'state' => 200,
+            'data' => $data,
+        ], 200);
+    }
+
+    public function showRevenues(){
         $user = Auth::user();
-        $bus = Business::find($user->business_id);
-        $data = Revenues::where('revenues.business_id',$bus->id)
-            ->leftJoin("branches" , 'branches.id' ,'revenues.branch_id' )
-            ->leftJoin("currencies" , 'currencies.id' ,'revenues.currency_id' )
-            ->get([
-                "revenues.id",
-                "branches.name as branches_name",
-                "revenues.name as revenue_name",
-                "date",
-                "remaining",
-                "note",
-                "value",
-                "revenues.business_id",
-                "revenues.currency_id",
-                "branch_id",
-                "creator_id",
-                "revenues.created_at",
-                "revenues.updated_at",
-                'code_en',
-                'code_ar',
-                'symbol',
-                'name_en',
-                'name_ar',
-                'exchange_rate_to_dollar',
-                'blocked_currency',
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'business'=>$bus,
-            'data' => $data,
-        ], 200);
+        return $this->showRevenuesByBusiness($user->business_id);
     }
-
-
-    public function showRevenuesByBranches($id){
-        $branch = Branches::find($id);
-        $data = Revenues::where('branch_id',$id)
-            ->join("currencies" , 'currencies.id' ,'revenues.currency_id' )
-            ->get([
-                "revenues.id",
-                "revenues.name as revenue_name",
-                "date",
-                "remaining",
-                "note",
-                "value",
-                "revenues.business_id",
-                "revenues.currency_id",
-                "branch_id",
-                "creator_id",
-                "revenues.created_at",
-                "revenues.updated_at",
-                'code_en',
-                'code_ar',
-                'symbol',
-                'name_en',
-                'name_ar',
-                'exchange_rate_to_dollar',
-                'blocked_currency',
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'branch'=>$branch,
-            'data' => $data,
-        ], 200);
-    }
-
 
     public function addRevenue(Request $request){
         $user = Auth::user();
@@ -105,10 +49,7 @@ class RevenuesController extends Controller
             'creator_id' => $user->id
         ]);
 
-        if($request->branch_id == null)
-            return $this->showRevenuesByBusiness();
-        else
-            return $this->showRevenuesByBranches($request->branch_id);
+        return $this->showRevenuesByBusiness($user->business_id);
     }
 
     public function deleteRevenue ($id){
@@ -131,15 +72,70 @@ class RevenuesController extends Controller
         // حذف العطلة
         $Expenses->delete();
 
-        if($Expenses->branch_id == null)
-            return $this->showRevenuesByBusiness($Expenses->business_id);
-        else
-            return $this->showRevenuesByBranches($Expenses->branch_id);
+        return $this->showRevenuesByBusiness($Expenses->business_id);
+    }
+
+    public function changeRevenue (Request $request , $id){
+        $Expenses = Revenues::find($id);
+
+        if (!$Expenses) {
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "Revenues id not found",
+            ], 404);
+        }
+        $user = Auth::user();
+        if($user->business_id != $Expenses->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 4 ,
+                'message'=>"This revenues not related to your business",
+            ], 402);
+
+        $Expenses->update($request->only([
+            'name',
+            'note',
+            'value',
+            'remaining',
+            'date',
+            'branch_id',
+            'currency_id',
+        ]));
+
+        return $this->showRevenuesByBusiness($Expenses->business_id);
     }
 
     //************************************************
     // start  payments controller
     //************************************************
+
+    public function showRevenuePayment ($id){
+        $revenue = Revenues::find($id);
+        if (!$revenue) {
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "Revenue id not found",
+            ], 404);
+        }
+
+        $user = Auth::user();
+        if($user->business_id != $revenue->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 4 ,
+                'message'=>"This revenue not related to your business",
+            ], 402);
+
+        $data = Revenues::where('id',$id)
+            ->with(['payments', 'currency'])->get();
+
+        return response()->json([
+            'state' => 200,
+            'data' => $data,
+        ], 200);
+    }
 
     public function addRevenuePayment (Request $request){
 
@@ -178,14 +174,7 @@ class RevenuesController extends Controller
         $revenue->remaining = $revenue->remaining - $request->value;
         $revenue->save();
 
-        $data = Revenues_payments::where('revenues_id',$request->revenues_id)
-            ->get();
-
-        return response()->json([
-            'state' => 200,
-            'revenue'=>$revenue,
-            'data' => $data,
-        ], 200);
+        return $this->showRevenuePayment($request->revenues_id);
 
     }
 
@@ -214,42 +203,6 @@ class RevenuesController extends Controller
         $revenue->remaining = $revenue->remaining + $RevenuePay->value;
         $revenue->save();
 
-        $data = Revenues_payments::where('revenues_id',$RevenuePay->revenues_id)
-            ->get();
-
-        return response()->json([
-            'state' => 200,
-            'revenue'=>$revenue,
-            'data' => $data,
-        ], 200);
+        return $this->showRevenuePayment($RevenuePay->revenues_id);
     }
-
-
-    public function showRevenuePayment ($id){
-        $revenue = Revenues::find($id);
-        if (!$revenue) {
-            return response()->json([
-                'state' => 404,
-                'error' => 1,
-                'message' => "Revenue id not found",
-            ], 404);
-        }
-
-        $user = Auth::user();
-        if($user->business_id != $revenue->business_id)
-            return response()->json([
-                'state' => 402,
-                'error'=> 4 ,
-                'message'=>"This revenue not related to your business",
-            ], 402);
-
-        $data = Revenues_payments::where('revenues_id',$id)->get();
-
-        return response()->json([
-            'state' => 200,
-            'revenue'=>$revenue,
-            'data' => $data,
-        ], 200);
-    }
-
 }

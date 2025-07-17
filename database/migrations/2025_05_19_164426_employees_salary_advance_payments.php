@@ -15,7 +15,7 @@ return new class extends Migration
                     $table->id();
 
 
-                    $table->float('value',10,3);
+                    $table->float('value',15,6);
                     $table->date('date')->nullable();
 
 

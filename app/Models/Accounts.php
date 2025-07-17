@@ -17,4 +17,8 @@ class Accounts extends Model
         'business_id',
         'branch_id',
     ];
+    public function partner()
+    {
+        return $this->belongsTo(Partners::class);
+    }
 }

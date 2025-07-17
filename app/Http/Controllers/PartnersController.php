@@ -15,39 +15,19 @@ use function Illuminate\Queue\retrieveNextJob;
 
 class PartnersController extends Controller
 {
-    public function showPartners(){
-        $user = Auth::user();
-        $bus = Business::find($user->business_id);
-        $data = Partners::where('business_id',$user->business_id)
-            ->join("currencies" , 'currencies.id' ,'partners.currency_id' )
-            ->get([
-                "partners.id as partners_id",
-                "currencies.id as currencies_id",
-                "total_capital",
-                "ownership_percentage",
-                "role",
-                "note",
-                "join_date",
-                "business_id",
-                "user_id",
-                "currency_id",
-                "partners.created_at",
-                "partners.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency",
-                'blocked_partner'
-            ]);
+    public function showPartnersByBusinessId($id){
+        $data = Partners::where('business_id',$id)
+            ->with('currency')->get();
 
         return response()->json([
             'state' => 200,
-            'business'=> $bus,
             'data' => $data,
         ], 201);
+    }
+
+    public function showPartners(){
+        $user = Auth::user();
+        return $this->showPartnersByBusinessId($user->business_id);
     }
 
     public function addPartner(Request $request){
@@ -68,36 +48,7 @@ class PartnersController extends Controller
             'currency_id' => $request->currency_id
         ]);
 
-        $data = Partners::where('business_id',$user->business_id)
-            ->join("currencies" , 'currencies.id' ,'partners.currency_id' )
-            ->get([
-                "partners.id as partners_id",
-                "currencies.id as currencies_id",
-                "total_capital",
-                "ownership_percentage",
-                "role",
-                "note",
-                "join_date",
-                "business_id",
-                "user_id",
-                "currency_id",
-                "partners.created_at",
-                "partners.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency",
-                'blocked_partner'
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-        ], 201);
+        return $this->showPartnersByBusinessId($user->business_id);
     }
 
     public function updatePartner(Request $request, $id)
@@ -119,7 +70,6 @@ class PartnersController extends Controller
                 'message'=>"This partner not related to your business",
             ], 402);
 
-        // تحديث البيانات الاختيارية
 
         $partner->update($request->only([
             'total_capital',
@@ -130,36 +80,7 @@ class PartnersController extends Controller
             'currency_id'
         ]));
 
-        $data = Partners::where('business_id',$user->business_id)
-            ->join("currencies" , 'currencies.id' ,'partners.currency_id' )
-            ->get([
-                "partners.id as partners_id",
-                "currencies.id as currencies_id",
-                "total_capital",
-                "ownership_percentage",
-                "role",
-                "note",
-                "join_date",
-                "business_id",
-                "user_id",
-                "currency_id",
-                "partners.created_at",
-                "partners.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency",
-                'blocked_partner'
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"updated successfully",
-            'data' => $data,
-        ], 201);
+        return $this->showPartnersByBusinessId($user->business_id);
     }
     public function toggleBlockPartner($id){
         $partner= Partners::find($id);
@@ -183,36 +104,7 @@ class PartnersController extends Controller
         $partner->blocked_partner = !$partner->blocked_partner;
         $partner->save();
 
-        $data = Partners::where('business_id',$user->business_id)
-            ->join("currencies" , 'currencies.id' ,'partners.currency_id' )
-            ->get([
-                "partners.id as partners_id",
-                "currencies.id as currencies_id",
-                "total_capital",
-                "ownership_percentage",
-                "role",
-                "note",
-                "join_date",
-                "business_id",
-                "user_id",
-                "currency_id",
-                "partners.created_at",
-                "partners.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency",
-                'blocked_partner'
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'message' => "partner blocked status updated",
-            'data' => $data
-        ]);
+        return $this->showPartnersByBusinessId($user->business_id);
     }
 
     //************************************************
@@ -231,23 +123,7 @@ class PartnersController extends Controller
             ], 402);
 
         $data = Partners_payments::where('partner_id',$id)
-            ->join("currencies" , 'currencies.id' ,'partners_payments.currency_id' )
-            ->get([
-                "partners_payments.id",
-            "value",
-            "date",
-            "partner_id",
-            "currency_id",
-            "partners_payments.created_at",
-            "partners_payments.updated_at",
-            "code_en",
-            "code_ar",
-            "symbol",
-            "name_en",
-            "name_ar",
-            "exchange_rate_to_dollar",
-            "blocked_currency"
-            ]);
+            ->with('currency')->get();
 
         return response()->json([
             'state' => 200,
@@ -284,7 +160,8 @@ class PartnersController extends Controller
             'value' => $request->value,
             'date' => $request->date,
             'partner_id' => $request->partner_id,
-            'currency_id' => $request->currency_id
+            'currency_id' => $request->currency_id,
+            'creator_id' => $user->id
         ]);
 
         $partner -> total_capital = $partner -> total_capital + $request->value ;
@@ -332,23 +209,7 @@ class PartnersController extends Controller
             ], 402);
 
         $data = Partners_withdrawals::where('partner_id',$id)
-            ->join("currencies" , 'currencies.id' ,'partners_withdrawals.currency_id' )
-            ->get([
-                "partners_withdrawals.id",
-                "value",
-                "date",
-                "partner_id",
-                "currency_id",
-                "partners_withdrawals.created_at",
-                "partners_withdrawals.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
+            ->with('currency')->get();
 
         return response()->json([
             'state' => 200,
@@ -385,7 +246,8 @@ class PartnersController extends Controller
             'value' => $request->value,
             'date' => $request->date,
             'partner_id' => $request->partner_id,
-            'currency_id' => $request->currency_id
+            'currency_id' => $request->currency_id,
+            'creator_id' => $user->id
         ]);
 
         $partner -> total_capital = $partner -> total_capital - $request->value ;

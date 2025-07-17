@@ -13,6 +13,7 @@ class Products extends Model
         'blocked_product',
         'img_url',
         'categories',
+        'star',
         'business_id',
         'branch_id',
         'type_id',
@@ -23,6 +24,18 @@ class Products extends Model
     public function prices()
     {
         return $this->hasMany(Products_prices::class,'product_id');
+    }
+    public function codes()
+    {
+        return $this->hasMany(Products_codes::class,'product_id');
+    }
+    public function type()
+    {
+        return $this->belongsTo(Products_types::class);
+    }
+    public function unite()
+    {
+        return $this->belongsTo(Products_units::class, 'unit_id'); // تأكد من استخدام 'unit_id'
     }
 
     public function invoices()

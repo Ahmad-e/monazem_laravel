@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('invoices_products', function (Blueprint $table) {
             $table->id();
             $table->integer('products_count');
-            $table->float('total_product_price',12,3);
-            $table->float('tax_amount',10,3);
+            $table->float('total_product_price',15,6);
+            $table->float('tax_amount',15,6);
 
             $table->foreignId('product_id')
                 ->constrained('products')

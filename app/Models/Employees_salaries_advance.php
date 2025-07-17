@@ -21,4 +21,9 @@ class Employees_salaries_advance extends Model
     {
         return $this->hasMany(Employees_salaries_advances_payments::class,'salaries_advance_id');
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
+
 }

@@ -21,6 +21,7 @@ class Invoices extends Model
         'amount_in_base',
         'shipping_cost_in_base',
         'blocked',
+        'star',
         'date',
         'branch_id',
         'original_invoice_id',

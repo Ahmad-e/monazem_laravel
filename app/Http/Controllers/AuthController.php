@@ -33,6 +33,7 @@ class AuthController extends Controller
             'img_url'=>$request->img_url,
             'phone_number'=>$request->phone_number,
             'password' => Hash::make($request->password),
+            'is_business_creator'=>true
         ]);
 
         $business = Business::create([
@@ -83,7 +84,7 @@ class AuthController extends Controller
             'phone_number'=>$request->phone_number,
             'password' => Hash::make($request->password),
             'business_id' => $creator->business_id,
-            'branch_id' => $request->branch_id
+            'branch_id' => $request->branch_id,
         ]);
         $users = User::where('business_id',$creator->business_id)->get();
         return response()->json([
@@ -124,6 +125,28 @@ class AuthController extends Controller
         $users = User::where('business_id',$creator->business_id)->get();
         return response()->json([
             'users' => $users
+        ], 201);
+    }
+
+    public function showAccountById($id){
+        $user = User::find($id);
+        if(!$user){
+            return response()->json([
+                'state' => 404,
+                'error'=> 2 ,
+                'message'=>"no user id found",
+            ], 404);
+        }
+
+        $creator = Auth::user();
+        if($creator->business_id != $user->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 3 ,
+                'message'=>"This account not related to your business",
+            ], 402);
+        return response()->json([
+            'user' => $user
         ], 201);
     }
 

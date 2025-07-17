@@ -13,4 +13,13 @@ class Cashes extends Model
         'currency_id',
         'manager_id',
     ];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branches::class);
+    }
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

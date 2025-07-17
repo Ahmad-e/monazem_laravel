@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 use App\Models\External_depts;
 use App\Models\External_depts_payments;
@@ -12,34 +13,7 @@ class ExternalDeptsController extends Controller
 {
     public function showExternalDeptByBusinessId($id){
         $data = External_depts::where('business_id', $id)
-            ->leftJoin('currencies', 'currencies.id', '=', 'external_debts.currency_id')
-            ->select('external_debts.*') // مهم للحفاظ على نموذج Eloquent
-            ->get([
-                "currencies.id as currencies_id",
-                'external_debts.id as external_debts_id',
-                "note",
-                "total",
-                "paid",
-                "remaining",
-                "start_date",
-                "end_date",
-                "type",
-                "state",
-                "business_id",
-                "user_id",
-                "employee_id" ,
-                "external_debts.creator_id",
-                "external_debts.created_at",
-                "external_debts.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en" ,
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ])
-            ->load('Payment');
+            ->with(['Payment','currency'])->get();
 
         return response()->json([
             'state' => 200,
@@ -79,6 +53,15 @@ class ExternalDeptsController extends Controller
             'currency_id'=>$request->currency_id,
             'creator_id' => $user->id
         ]);
+
+//        $transaction = Transactions::create([
+//            'description' => $request->note ,
+//            'reference_number_type' => 'external_debt',
+//            'branch_id' => $request->branch_id,
+//            'currency_id' => $request->currency_id,
+//            'business_id' =>$user->business_id,
+//            'creator_id' => $user->id,
+//        ]);
 
         return $this->showExternalDeptByBusinessId($user->business_id);
     }

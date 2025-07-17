@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Places;
 use App\Models\Product_places;
+use App\Models\Products_codes;
 use App\Models\Products_moves;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -203,34 +204,7 @@ class ProductController extends Controller
     public function showProductById($id){
 
         $data = Products::where('products.business_id', $id)
-            ->rightJoin("products_types", 'products_types.id', '=', 'products.type_id')
-            ->rightJoin("products_units", 'products_units.id', '=', 'products.unit_id')
-//            ->with('prices')
-            ->get([
-                "products_types.id as products_types_id",
-                "products_units.id as products_units_id",
-                "products.id as products_id",
-                "products_types.name as products_types_name",
-                "products_units.name as products_units_name",
-                "products.name as products_name",
-                "description",
-                "code",
-                "blocked_product",
-                "img_url",
-                "categories",
-                "products.business_id",
-                "products.branch_id",
-                "type_id",
-                "unit_id",
-                "products.creator_id",
-                "products.created_at",
-                "products.updated_at",
-                "blocked_type",
-                "symbol",
-                "group_ar",
-                "group_en",
-                "conversion_factor"
-            ]);
+            ->with(['type', 'unite'])->get();
 
         return response()->json([
             'state' => 200,
@@ -332,7 +306,7 @@ class ProductController extends Controller
     public function showPricesByID($id){
         $product = Products::find($id);
         $data = Products_prices::where('product_id',$id)
-            ->get();
+            ->with('currency')->get();
         return response()->json([
             'state' => 200,
             'data' => $data,
@@ -399,6 +373,124 @@ class ProductController extends Controller
         ]);
 
         return $this->showPricesByID($request->product_id);
+    }
+
+    public function changeProductsPrices(Request $request , $id){
+        $price = Products_prices::find($id);
+        if(!$price)
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "No Product price by this ID",
+            ], 404);
+
+        $creator = Auth::user();
+        $product = Products::find($price->product_id);
+        if($product->business_id != $creator->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 3 ,
+                'message'=>"This Products not related to your business",
+            ], 402);
+
+        $price->update($request->only([
+            'price',
+            'note',
+            'categories',
+            'partner_ar',
+            'partner_en',
+            'currency_id',
+        ]));
+        return $this->showPricesByID($price->product_id);
+    }
+
+    //******************************
+    //   start products codes
+    //******************************
+
+    public function showProductCodeByProductId($id){
+        $data = Products::where('id',$id)
+            ->with('codes')->get();
+
+        return response()->json([
+            'state' => 200,
+            'data' => $data
+        ], 201);
+    }
+    public function showProductCode($id){
+        $product = Products::find($id);
+        if(!$product)
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "No Products by this ID",
+            ], 404);
+
+        $user = Auth::user();
+        if($product->business_id != $user->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 3 ,
+                'message'=>"This Products not related to your business",
+            ], 402);
+
+        return $this->showProductCodeByProductId($id);
+    }
+    public function addProductCode(Request $request){
+        $request->validate([
+            'value' => 'required',
+            'product_id' => 'required'
+        ]);
+
+        $product = Products::find($request->product_id);
+        if(!$product)
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "No Products by this ID",
+            ], 404);
+
+        $user = Auth::user();
+        if($product->business_id != $user->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 3 ,
+                'message'=>"This Products not related to your business",
+            ], 402);
+
+        Products_codes::create([
+            'value' => $request->value,
+            'date' => $request->date,
+            'product_id' => $request->product_id,
+            'creator_id' => $user->id,
+        ]);
+
+        return $this->showProductCodeByProductId($request->product_id);
+    }
+    public function changeProductCode(Request $request , $id){
+        $code = Products_codes::find($id);
+        if(!$code)
+            return response()->json([
+                'state' => 404,
+                'error' => 1,
+                'message' => "No code by this ID",
+            ], 404);
+
+        $product = Products::find($id);
+        $user = Auth::user();
+        if($product->business_id != $user->business_id)
+            return response()->json([
+                'state' => 402,
+                'error'=> 3 ,
+                'message'=>"This Products not related to your business",
+            ], 402);
+
+        $code->update($request->only([
+            'value',
+            'date',
+        ]));
+
+        return $this->showProductCodeByProductId($code->product_id);
     }
 
     //******************************

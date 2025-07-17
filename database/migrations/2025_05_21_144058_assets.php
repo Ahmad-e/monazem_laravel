@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('note')->nullable();
             $table->enum('state', ['active', 'disposed', 'sold', 'retired']);
-            $table->float('amount');
+            $table->float('amount',15,6);
             $table->integer('count');
             $table->float('book_value');
             $table->date('date');

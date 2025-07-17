@@ -26,4 +26,8 @@ class External_depts extends Model
     {
         return $this->hasMany(External_depts_payments::class,'external_debt_id');
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products_moves', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->float('move_amount');
+            $table->float('move_amount',15,6);
             $table->integer('count');
             $table->date('date');
 

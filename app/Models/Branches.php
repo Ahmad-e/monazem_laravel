@@ -14,4 +14,12 @@ class Branches extends Model
         'contact_info',
         'business_id'
     ];
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
+    public function manager()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

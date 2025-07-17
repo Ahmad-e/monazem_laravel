@@ -18,23 +18,8 @@ class BranchController extends Controller
     public function showAllBranches(){
         $user = Auth::user();
         $data = Branches::where('branches.business_id',$user->business_id)
-            ->join('businesses as bus','bus.id','branches.business_id' )
-            ->join( 'users','users.id','branches.manager_id' )
-            ->get([
-                'bus.name as business_name',
-                'bus.id as business_id',
-                'branches.name as branches_name',
-                'branches.id as branches_id',
-                'branches.description',
-                'contact_info',
-                'blocked_branch',
-                'users.name as manager_name',
-                'users.id as manager_id',
-                "branches.description",
-                "blocked_branch",
-                "branches.created_at",
-                "branches.updated_at",
-            ]);
+            ->with(['business', 'manager'])->get();
+
         $main_branch = Main_branch_business::where('business_id',$user->business_id)->first();
         return response()->json([
             'state' => 200,
@@ -126,31 +111,12 @@ class BranchController extends Controller
     //******************************
 
     public function showCashesByBranchId ($id){
-        $branch = Branches::find($id);
         $data = Cashes::where('branch_id',$id)
-            ->join("currencies" , 'currencies.id' ,'Cashes.currency_id' )
-            ->get([
-                "cashes.id as cashes_id",
-                "Balance",
-                "note",
-                "branch_id",
-                "manager_id",
-                "currency_id",
-                "cashes.created_at",
-                "cashes.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
+            ->with(['branch', 'currency'])->get();
 
         return response()->json([
             'state' => 200,
-            'data' => $data,
-            'branch' =>$branch
+            'data' => $data
         ], 201);
     }
 

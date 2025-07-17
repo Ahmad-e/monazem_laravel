@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees_compensations', function (Blueprint $table) {
                     $table->id();
-                    $table->float('value',10,3);
+                    $table->float('value',15,6);
                     $table->string('description')->nullable();
                     $table->date('pay_time')->nullable();
 

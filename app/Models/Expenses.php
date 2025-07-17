@@ -17,4 +17,13 @@ class Expenses extends Model
         'creator_id',
         'currency_id',
     ];
+
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Expenses_payments::class,'expenses_id');
+    }
 }

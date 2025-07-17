@@ -12,32 +12,7 @@ class RentPrepaidController extends Controller
 {
     public function showRentPreExpensesByBusId($id){
         $data = Rent_prepaid_expenses::where('business_id',$id)
-            ->join("currencies", 'currencies.id', '=', 'rent_prepaid_expenses.currency_id')
-            ->get([
-                "currencies.id as currency_id",
-                "rent_prepaid_expenses.id as rent_prepaid_expenses_id",
-                "amount",
-                "book_value",
-                "amount_in_base",
-                "month_count",
-                "name",
-                "note",
-                "start_date",
-                "end_date",
-                "account_id",
-                "business_id",
-                "branch_id",
-                "creator_id",
-                "rent_prepaid_expenses.created_at",
-                "rent_prepaid_expenses.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
+            ->with('currency')->get();
         return response()->json([
             'state' => 200,
             'data' => $data

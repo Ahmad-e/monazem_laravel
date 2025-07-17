@@ -21,4 +21,8 @@ class Employees_salaries extends Model
     {
         return $this->hasMany(Employees_salaries_payments::class,'salary_id');
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

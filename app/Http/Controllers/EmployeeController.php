@@ -21,36 +21,28 @@ use function Carbon\this;
 class EmployeeController extends Controller
 {
 
+    public function getEmployeesByBusinessId($id)
+    {
+        $employees = Employees::where("business_id", $id)->get();
+
+        return response()->json([
+            'state' => 200,
+            'data' => $employees,
+        ]);
+    }
+
+    public function getEmployees()
+    {
+        $user = Auth::user();
+        return $this->getEmployeesByBusinessId($user->business_id);
+    }
+
     public function addEmployee(Request $request){
 
         $request->validate([
             'name' => 'required'
         ]);
         $user = Auth::user();
-
-
-        if($request->branch_id != null)
-        {
-            $branch = Branches::find($request->branch_id);
-            if(!$branch){
-                return response()->json([
-                    'state' => 404,
-                    'error'=> 2 ,
-                    'message'=>"no branch id found",
-                ], 404);
-            }
-
-            if($branch->business_id != $user->business_id){
-                return response()->json([
-                    'state' => 402,
-                    'error'=> 3 ,
-                    'message'=>"This branch not related to your business",
-                ], 402);
-            }
-        }
-
-
-
 
         Employees::create([
             'name' => $request->name,
@@ -66,114 +58,9 @@ class EmployeeController extends Controller
             'creator_id'=>$user->id,
         ]);
 
-        $data = Employees::where("business_id" , $user->business_id )->join('businesses as bus','bus.id','employees.business_id' )
-            ->get([
-                'employees.id',
-                'employees.name as employees_name',
-                'bus.name as business_name',
-                'employees.email',
-                'employees.phone_number',
-                'employees.address',
-                'employees.position',
-                'employees.hire_date',
-                'employees.termination_date',
-                'employees.note',
-                'employees.blocked_employee',
-                'employees.branch_id',
-                'employees.business_id',
-                'employees.creator_id',
-                'employees.created_at',
-                'employees.updated_at',
-            ]);
-
-
-            return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-        ], 201);
+        return $this->getEmployeesByBusinessId($user->business_id);
     }
 
-    public function getEmployeesByBusinessId()
-    {
-        $user = Auth::user();
-
-        $employees = Employees::where("business_id", $user->business_id)
-            ->join('businesses as bus', 'bus.id', 'employees.business_id')
-            ->get([
-                'employees.id',
-                'employees.name as employees_name',
-                'bus.name as business_name',
-                'employees.email',
-                'employees.phone_number',
-                'employees.address',
-                'employees.position',
-                'employees.hire_date',
-                'employees.termination_date',
-                'employees.note',
-                'employees.blocked_employee',
-                'employees.branch_id',
-                'employees.business_id',
-                'employees.creator_id',
-                'employees.created_at',
-                'employees.updated_at',
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'data' => $employees,
-        ]);
-    }
-
-    // عرض الموظفين حسب branch_id
-    public function getEmployeesByBranchId($branchId)
-    {
-        $user = Auth::user();
-        $branch = Branches::find($branchId);
-        if(!$branch){
-            return response()->json([
-                'state' => 404,
-                'error'=> 2 ,
-                'message'=>"no branch id found",
-            ], 404);
-        }
-
-        if($branch->business_id != $user->business_id){
-            return response()->json([
-                'state' => 402,
-                'error'=> 3 ,
-                'message'=>"This branch not related to your business",
-            ], 402);
-        }
-
-        $employees = Employees::where("branch_id", $branchId)
-            ->join('branches as br', 'br.id', 'employees.branch_id')
-            ->get([
-                'employees.id',
-                'employees.name as employees_name',
-                'br.name as branch_name',
-                'employees.email',
-                'employees.phone_number',
-                'employees.address',
-                'employees.position',
-                'employees.hire_date',
-                'employees.termination_date',
-                'employees.note',
-                'employees.blocked_employee',
-                'employees.branch_id',
-                'employees.business_id',
-                'employees.creator_id',
-                'employees.created_at',
-                'employees.updated_at',
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'data' => $employees,
-        ]);
-    }
-
-    // تعديل بيانات الموظف
     public function updateEmployee(Request $request, $id)
     {
         $employee = Employees::find($id);
@@ -196,29 +83,6 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        if($request->branch_id != null)
-        {
-            $branch = Branches::find($request->branch_id);
-            if(!$branch){
-                return response()->json([
-                    'state' => 404,
-                    'error'=> 3 ,
-                    'message'=>"no branch id found",
-                ], 404);
-            }
-
-            if($branch->business_id != $user->business_id){
-                return response()->json([
-                    'state' => 402,
-                    'error'=> 4 ,
-                    'message'=>"This branch not related to your business",
-                ], 402);
-            }
-        }
-
-        // تحديث البيانات الاختيارية
-
-
         $employee->update($request->only([
             'name',
             'email',
@@ -231,14 +95,9 @@ class EmployeeController extends Controller
             'branch_id'
         ]));
 
-        return response()->json([
-            'state' => 200,
-            'message' => "Employee updated successfully",
-            'data' => $employee,
-        ]);
+        return $this->getEmployeesByBusinessId($user->business_id);
     }
 
-    // عكس قيمة blocked_employee
     public function toggleBlockedEmployee($id)
     {
         $employee = Employees::find($id);
@@ -264,16 +123,25 @@ class EmployeeController extends Controller
         $employee->blocked_employee = !$employee->blocked_employee;
         $employee->save();
 
-        return response()->json([
-            'state' => 200,
-            'message' => "Employee blocked status updated",
-            'data' => $employee
-        ]);
+        return $this->getEmployeesByBusinessId($user->business_id);
     }
 
     //************************************************
     // start  salaries controller
     //************************************************
+
+    public function getAllEmployeeSalariesByBusinessId($id){
+        $employee = Employees::find($id);
+        $data = Employees_salaries:: where('employee_id',$id)
+            ->with('currency')->get();
+
+        return response()->json([
+            'state' => 200,
+            'message'=>"Added successfully",
+            'data' => $data,
+            'employee_data'=>$employee
+        ], 200);
+    }
 
     public function addEmployeeSalary(Request $request){
 
@@ -281,6 +149,7 @@ class EmployeeController extends Controller
             'value' => 'required',
             'employee_id' => 'required'
         ]);
+
         $employee = Employees::find($request->employee_id);
         $user = Auth::user();
 
@@ -300,15 +169,6 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-
-        if(!(Currencies::where('id',$request->currency_id)->exists())){
-            return response()->json([
-                'state' => 404,
-                'error'=> 2 ,
-                'message'=>"no currency id found",
-            ], 404);
-        }
-
         Employees_salaries::where('employee_id', $request->employee_id)-> where('active', '=', 1)->update(['active' => 0]);
         Employees_salaries::create([
             'value' => $request->value,
@@ -320,16 +180,7 @@ class EmployeeController extends Controller
             'creator_id' => $user->id
         ]);
 
-        $data = Employees_salaries:: where('employee_id',$request->employee_id)
-            ->join("currencies" , 'currencies.id' ,'employees_salaries.currency_id' )
-            ->get();
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeeSalariesByBusinessId($request->employee_id);
     }
 
     public function getAllEmployeeSalaries($id){
@@ -353,17 +204,7 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-
-        $data = Employees_salaries:: where('employee_id',$id)
-            ->join("currencies" , 'currencies.id' ,'employees_salaries.currency_id' )
-            ->get();
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeeSalariesByBusinessId($id);
     }
 
     public function getActiveEmployeeSalaries($id){
@@ -386,16 +227,7 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        $data = Employees_salaries:: where('employee_id',$id)->where('active',1)
-            ->join("currencies" , 'currencies.id' ,'employees_salaries.currency_id' )
-            ->get();
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeeSalariesByBusinessId($id);
     }
 
     public function selectActiveEmployeeSalaries($id){
@@ -422,21 +254,23 @@ class EmployeeController extends Controller
 
         Employees_salaries::where('active', '=', 1)->update(['active' => 0]);
         Employees_salaries::where('id',$id)->update(['active' => 1]);
-        $updated = Employees_salaries::where('id',$id)->first();
-        $data = Employees_salaries:: where('employee_id',$updated->employee_id)->get();
 
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeeSalariesByBusinessId($employee->id);
     }
 
     //************************************************
     // start Employee salary payments controller
     //************************************************
+    public function showEmployeesSalariesPaymentBySalaryId($id){
+        $salaries = Employees_salaries::where('id',$id)
+            ->with(['payments','currency'])
+            ->get();
 
+        return response()->json([
+            'state' => 200,
+            'data' => $salaries
+        ], 200);
+    }
     public function addEmployeesSalariesPayment (Request $request){
         $request->validate([
             'value' => 'required',
@@ -468,14 +302,6 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        if(!(Currencies::where('id',$request->currency_id)->exists())){
-            return response()->json([
-                'state' => 404,
-                'error'=> 2 ,
-                'message'=>"no currency id found",
-            ], 404);
-        }
-
         Employees_salaries_payments::create([
             'value' => $request->value,
             'description' => $request->description,
@@ -489,13 +315,7 @@ class EmployeeController extends Controller
             'creator_id'=>$user->id,
         ]);
 
-        $data = Employees_salaries_payments::where('salary_id',$request->salary_id)->get();
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesPaymentBySalaryId($request->salary_id);
 
     }
 
@@ -521,12 +341,7 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        $data = Employees_salaries_payments::where('salary_id',$id)->get();
-        return response()->json([
-            'state' => 200,
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesPaymentBySalaryId($id);
     }
 
     public function showEmployeesSalary_SalaryPayment ($id){
@@ -558,6 +373,7 @@ class EmployeeController extends Controller
             'employee_data'=>$employee
         ], 200);
     }
+
     public function deleteEmployeesSalariesPayment ($id){
         $Payment = Employees_salaries_payments::find($id);
 
@@ -582,18 +398,26 @@ class EmployeeController extends Controller
         // حذف العطلة
         $Payment->delete();
 
-        $data = Employees_salaries_payments::where('salary_id',$Payment->salary_id)->get();
-        return response()->json([
-            'state' => 200,
-            'message'=>"deleted successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesPaymentBySalaryId($id);
     }
 
     //************************************************
     // start Employee salary Advance controller
     //************************************************
+
+    public function getAllEmployeesSalariesAdvanceByEmployeeId($id) {
+        $employee = Employees::find($id);
+        $data = Employees_salaries_advance::where('employee_id',$id)
+            ->with(['AdvancePayments','currency'])
+            ->get();
+
+        return response()->json([
+            'state' => 200,
+            'message' => "Retrieved successfully",
+            'data' => $data,
+            'employee_data'=>$employee
+        ], 200);
+    }
 
     public function addEmployeesSalariesAdvance(Request $request){
 
@@ -621,15 +445,6 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-
-        if(!(Currencies::where('id',$request->currency_id)->exists())){
-            return response()->json([
-                'state' => 404,
-                'error'=> 2 ,
-                'message'=>"no currency id found",
-            ], 404);
-        }
-
         Employees_salaries_advance::create([
             'value' => $request->value,
             'description' => $request->description,
@@ -641,35 +456,7 @@ class EmployeeController extends Controller
             'creator_id' => $user->id
         ]);
 
-        $data = Employees_salaries_advance:: where('employee_id',$request->employee_id)
-            ->join("currencies" , 'currencies.id' ,'employees_salaries_advances.currency_id' )
-            ->get([
-                "employees_salaries_advances.id",
-                "value",
-                "paid",
-                "description",
-                "is_debts",
-                "pay_time",
-                "employee_id",
-                "currency_id",
-                "creator_id",
-                "employees_salaries_advances.created_at",
-                "employees_salaries_advances.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeesSalariesAdvanceByEmployeeId($request->employee_id);
     }
 
     public function getAllEmployeesSalariesAdvance($id) {
@@ -692,35 +479,7 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        $data = Employees_salaries_advance::where('employee_id',$id)
-            ->join("currencies", 'currencies.id', '=', 'employees_salaries_advances.currency_id')
-            ->get([
-                "employees_salaries_advances.id",
-                "value",
-                "paid",
-                "description",
-                "is_debts",
-                "pay_time",
-                "employee_id",
-                "currency_id",
-                "creator_id",
-                "employees_salaries_advances.created_at",
-                "employees_salaries_advances.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-
-        return response()->json([
-            'state' => 200,
-            'message' => "Retrieved successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->getAllEmployeesSalariesAdvanceByEmployeeId($id);
     }
 
     public function deleteEmployeesSalariesAdvance($id) {
@@ -744,7 +503,7 @@ class EmployeeController extends Controller
         }
 
         $salaryAdvance->delete();
-        return $this->getAllEmployeesSalariesAdvance($employee->id);
+        return $this->getAllEmployeesSalariesAdvanceByEmployeeId($employee->id);
     }
 
     public function updateEmployeesSalariesAdvance(Request $request, $id) {
@@ -801,15 +560,35 @@ class EmployeeController extends Controller
         $salaryAdvance->save();
 
         // عرض جميع البيانات بعد التحديث
-        return $this->getAllEmployeesSalariesAdvance($employee->id);
+        return $this->getAllEmployeesSalariesAdvanceByEmployeeId($employee->id);
     }
 
     //************************************************
     // start Employee salary Advance payments controller
     //************************************************
 
-    public function getAllEmployeesSalariesAdvanceWithPayments($id){
-        $employee = Employees::find($id);
+    public function showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($id){
+        $salaries = Employees_salaries_advance::where('id',$id)
+            ->with(['AdvancePayments','currency'])
+            ->get();
+
+        return response()->json([
+            'state' => 200,
+            'data' => $salaries
+        ], 200);
+    }
+
+    public function getEmployeesSalariesAdvancePayments($id){
+        $salary_advance = Employees_salaries_advance::find($id);
+        if(!$salary_advance){
+            return response()->json([
+                'state' => 404,
+                'error'=> 1 ,
+                'message'=>"no Employee_salary_advance id found",
+            ], 200);
+        }
+
+        $employee = Employees::find($salary_advance->employee_id);
         $user = Auth::user();
         if($user->business_id != $employee->business_id){
             return response()->json([
@@ -818,38 +597,7 @@ class EmployeeController extends Controller
                 'message'=>"This employee not related to your business",
             ], 402);
         }
-
-        $data = Employees_salaries_advance::with('AdvancePayments')
-            ->where('employee_id',$id)
-            ->join("currencies", 'currencies.id', '=', 'employees_salaries_advances.currency_id')
-            ->get([
-                "employees_salaries_advances.id",
-                "value",
-                "paid",
-                "description",
-                "is_debts",
-                "pay_time",
-                "employee_id",
-                "currency_id",
-                "creator_id",
-                "employees_salaries_advances.created_at",
-                "employees_salaries_advances.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-
-
-        return response()->json([
-            'state' => 200,
-            'message' => "Retrieved successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($id);
     }
 
     public function addEmployeesSalariesAdvancePayments(Request $request){
@@ -883,14 +631,7 @@ class EmployeeController extends Controller
             'date' => $request->date,
         ]);
 
-        $data = Employees_salaries_advances_payments:: where('salaries_advance_id',$request->salaries_advance_id)->get();
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Added successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($request->salaries_advance_id);
     }
 
     public function deleteEmployeesSalariesAdvancePayments($id) {
@@ -924,41 +665,35 @@ class EmployeeController extends Controller
 
         $salaryAdvancePay->delete();
 
-        // عرض جميع البيانات المتبقية
-        $data = Employees_salaries_advances_payments:: where('salaries_advance_id',$id)->get();
-
-        return response()->json([
-            'state' => 200,
-            'message'=>"Deleted successfully",
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($salaryAdvancePay->salaries_advance_id);
     }
+
 
     //************************************************
     // start Employee compensation controller
     //************************************************
     public function showEmployeeCompensation($id){
+
+        $employee = Employees::find($id);
+        if (!$employee) {
+            return response()->json([
+                'state' => 404,
+                'error'=> 1 ,
+                'message' => "Employee not found",
+            ], 404);
+        }
+
+        $user = Auth::user();
+        if($user->business_id != $employee->business_id){
+            return response()->json([
+                'state' => 402,
+                'error'=> 2 ,
+                'message'=>"This employee not related to your business",
+            ], 402);
+        }
+
         $data = Employees_compensation::where('employee_id',$id)
-            ->join("currencies", 'currencies.id', '=', 'employees_compensations.currency_id')
-            ->get([
-                "employees_compensations.id as employees_compensations_id",
-                "value",
-                "description",
-                "pay_time",
-                "employee_id",
-                "currency_id",
-                "creator_id",
-                "employees_compensations.created_at",
-                "employees_compensations.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
+            ->with('currency')->get();
         return response()->json([
             'state' => 200,
             'data' => $data
@@ -974,7 +709,6 @@ class EmployeeController extends Controller
 
         $employee = Employees::find($request->employee_id);
         $user = Auth::user();
-
 
         if (!$employee) {
             return response()->json([
@@ -1065,10 +799,8 @@ class EmployeeController extends Controller
             $compensation->currency_id = $request->currency_id;
         }
 
-        // احفظ التغييرات
         $compensation->save();
 
-        // عرض جميع البيانات بعد التحديث
         return $this->showEmployeeCompensation($compensation->employee_id);
     }
 
@@ -1111,6 +843,34 @@ class EmployeeController extends Controller
     // start Employee compensation controller
     //************************************************
 
+    public function showEmployeeHolidays($id){
+
+        $employee = Employees::find($id);
+        if (!$employee) {
+            return response()->json([
+                'state' => 404,
+                'error'=> 1 ,
+                'message' => "Employee not found",
+            ], 404);
+        }
+
+        $user = Auth::user();
+        if($user->business_id != $employee->business_id){
+            return response()->json([
+                'state' => 402,
+                'error'=> 2 ,
+                'message'=>"This employee not related to your business",
+            ], 402);
+        }
+
+        $data = Employees_holidays::where('employee_id',$id)
+            ->with('currency')->get();
+        return response()->json([
+            'state' => 200,
+            'data' => $data
+        ], 200);
+    }
+
     public function addEmployeeHolidays(Request $request){
         $request->validate([
             'value' => 'required',
@@ -1137,16 +897,6 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-
-        if($request->currency_id != null)
-            if(!(Currencies::where('id',$request->currency_id)->exists())){
-                return response()->json([
-                    'state' => 404,
-                    'error'=> 2 ,
-                    'message'=>"no currency id found",
-                ], 404);
-            }
-
         Employees_holidays::create([
             'value' => $request->value,
             'description' => $request->description,
@@ -1156,63 +906,10 @@ class EmployeeController extends Controller
             'employee_id'=>$request->employee_id,
             'creator_id'=>$user->id,
         ]);
-
-        $data = Employees_holidays::where('employee_id',$request->employee_id)
-            ->join("currencies" , 'currencies.id' ,'employees_holidays.currency_id' )
-            ->get([
-                'employees_holidays.id',
-                "value",
-                "description",
-                "pay_time",
-                "type",
-                "employee_id" ,
-                "currency_id" ,
-                "creator_id" ,
-                "employees_holidays.created_at" ,
-                "employees_holidays.updated_at",
-                "code_en" ,
-                "code_ar" ,
-                "symbol" ,
-                "name_en",
-                "name_ar" ,
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
-
+        return $this->showEmployeeHolidays($request->employee_id);
     }
 
-    public function showEmployeeHolidays($id){
-        $data = Employees_holidays::where('employee_id',$id)
-            ->join("currencies" , 'currencies.id' ,'employees_holidays.currency_id' )
-            ->get([
-                'employees_holidays.id',
-            "value",
-            "description",
-            "pay_time",
-            "type",
-            "employee_id" ,
-            "currency_id" ,
-            "creator_id" ,
-            "employees_holidays.created_at" ,
-            "employees_holidays.updated_at",
-            "code_en" ,
-            "code_ar" ,
-            "symbol" ,
-            "name_en",
-            "name_ar" ,
-            "exchange_rate_to_dollar",
-            "blocked_currency"
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data' => $data
-        ], 200);
-    }
+
 
     public function changeEmployeeHolidays(Request $request,$id){
         $holiday = Employees_holidays::find($id);
@@ -1271,32 +968,7 @@ class EmployeeController extends Controller
         // حفظ التغييرات
         $holiday->save();
 
-        $data = Employees_holidays::where('employee_id',$holiday->employee_id)
-            ->join("currencies" , 'currencies.id' ,'employees_holidays.currency_id' )
-            ->get([
-                'employees_holidays.id',
-                "value",
-                "description",
-                "pay_time",
-                "type",
-                "employee_id" ,
-                "currency_id" ,
-                "creator_id" ,
-                "employees_holidays.created_at" ,
-                "employees_holidays.updated_at",
-                "code_en" ,
-                "code_ar" ,
-                "symbol" ,
-                "name_en",
-                "name_ar" ,
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeeHolidays($employee->employee_id);
     }
 
     public function deleteEmployeeHolidays($id){
@@ -1332,32 +1004,6 @@ class EmployeeController extends Controller
         // حذف العطلة
         $holiday->delete();
 
-        $data = Employees_holidays::where('employee_id',$holiday->employee_id)
-            ->join("currencies" , 'currencies.id' ,'employees_holidays.currency_id' )
-            ->get([
-                'employees_holidays.id',
-                "value",
-                "description",
-                "pay_time",
-                "type",
-                "employee_id" ,
-                "currency_id" ,
-                "creator_id" ,
-                "employees_holidays.created_at" ,
-                "employees_holidays.updated_at",
-                "code_en" ,
-                "code_ar" ,
-                "symbol" ,
-                "name_en",
-                "name_ar" ,
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data' => $data,
-            'employee_data'=>$employee
-        ], 200);
+        return $this->showEmployeeHolidays($employee->employee_id);
     }
-
 }

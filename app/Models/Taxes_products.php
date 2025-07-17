@@ -12,4 +12,12 @@ class Taxes_products extends Model
         'branch_id',
         'creator_id'
     ];
+    public function taxes()
+    {
+        return $this->belongsTo(Taxes::class ,'tax_id' );
+    }
+    public function products()
+    {
+        return $this->belongsTo(Products::class,'product_id');
+    }
 }

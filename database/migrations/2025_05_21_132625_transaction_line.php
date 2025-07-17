@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('description')->nullable();
             $table->enum('debit_credit', ['Debit', 'Credit']);
-            $table->float('amount');
+            $table->float('amount',18,6);
 
             $table->foreignId('transaction_id')
                 ->constrained('transaction')

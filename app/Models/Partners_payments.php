@@ -11,5 +11,10 @@ class Partners_payments extends Model
         'date',
         'partner_id',
         'currency_id',
+        'creator_id'
     ];
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }

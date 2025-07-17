@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('expenses_payments', function (Blueprint $table) {
             $table->id();
             $table->string('note')->nullable();
-            $table->float('value',10,3);
+            $table->float('value',15,6);
             $table->date('date')->nullable();
 
             $table->foreignId('expenses_id')

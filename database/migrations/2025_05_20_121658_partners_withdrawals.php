@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('partners_withdrawals', function (Blueprint $table) {
             $table->id();
-            $table->float('value',20,5);
+            $table->float('value',20,6);
             $table->date('date')->nullable();
 
             $table->foreignId('partner_id')

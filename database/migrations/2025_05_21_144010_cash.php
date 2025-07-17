@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cash', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->float('amount');
+            $table->float('amount',20,6);
 
             $table->foreignId('business_id')
                 ->constrained('businesses')

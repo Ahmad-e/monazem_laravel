@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->string('note')->nullable();
-            $table->float('total',10,3);
+            $table->float('total',15,6);
             $table->date('date')->nullable();
 
             $table->foreignId('external_debt_id')

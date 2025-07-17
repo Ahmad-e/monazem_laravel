@@ -10,30 +10,7 @@ class AssetsController extends Controller
 {
     public function showAssetsByBusinessId($id){
         $data = Assets::where('business_id' , $id)
-            ->join("currencies" , 'currencies.id' ,'assets.currency_id' )
-            ->get([
-                "assets.id as assets_id",
-                "currencies.id as currencies_id",
-                "name",
-                "note",
-                "state",
-                "amount",
-                "count",
-                "book_value",
-                "date",
-                "business_id",
-                "branch_id",
-                "creator_id",
-                "assets.created_at",
-                "assets.updated_at",
-                "code_en",
-                "code_ar",
-                "symbol",
-                "name_en",
-                "name_ar",
-                "exchange_rate_to_dollar",
-                "blocked_currency"
-            ]);
+            ->with('currency')->get();
         return response()->json([
             'state' => 200,
             'data' => $data,

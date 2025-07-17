@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_places', function (Blueprint $table) {
             $table->id();
-            $table->float('count');
+            $table->float('count',15,6);
             $table->foreignId('place_id')
                 ->constrained('places')
                 ->onDelete('cascade');

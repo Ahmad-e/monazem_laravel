@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buildings', function (Blueprint $table) {
+        Schema::create('products_codes', function (Blueprint $table) {
             $table->id();
+            $table->string('value')->nullable();
+            $table->date('date')->nullable();
 
-            $table->string('name')->nullable();
-            $table->enum('type', ['shop', 'warehouse']);
-            $table->float('latitude',4,14)->nullable();
-            $table->float('longitude',4,14)->nullable();
-            $table->boolean('blocked')->default(false);
-            $table->foreignId('branch_id')
-                ->constrained('branches')
+            $table->foreignId('product_id')
+                ->constrained('products')
                 ->onDelete('cascade');
 
             $table->foreignId('creator_id')
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('buildings');
+        Schema::dropIfExists('products_codes');
     }
 };

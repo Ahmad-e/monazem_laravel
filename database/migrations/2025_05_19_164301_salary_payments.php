@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('employees_salaries_payments', function (Blueprint $table) {
             $table->id();
-            $table->float('value',10,3);
-            $table->float('allowances',10,3);
-            $table->float('deductions',10,3);
+            $table->float('value',15,6);
+            $table->float('allowances',15,6);
+            $table->float('deductions',15,6);
             $table->string('description')->nullable();
             $table->date('date');
             $table->date('work_from')->nullable();

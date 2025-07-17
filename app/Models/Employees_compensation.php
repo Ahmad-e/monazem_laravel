@@ -14,4 +14,9 @@ class Employees_compensation extends Model
         'currency_id',
         'creator_id',
     ];
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
+
 }

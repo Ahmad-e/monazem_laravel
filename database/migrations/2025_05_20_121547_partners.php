@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
 
-            $table->decimal('total_capital', 12, 3); //إجمالي رأس المال
-            $table->decimal('ownership_percentage', 12, 3); //نسبة الملكية
+            $table->float('total_capital', 15,6); //إجمالي رأس المال
+            $table->float('ownership_percentage', 15,6); //نسبة الملكية
             $table->string('role')->nullable();
             $table->string('note')->nullable();
             $table->date('join_date')->nullable();

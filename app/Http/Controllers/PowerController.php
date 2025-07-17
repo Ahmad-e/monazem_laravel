@@ -86,6 +86,23 @@ class PowerController extends Controller
     //  start user _ powers
     //*******************************
 
+    public function showUserPowerByUserId($id){
+        $user = User::find($id);
+        $data = Powers_users:: where('user_id',$id)
+            ->join( 'powers' , 'powers.id' , 'powers_users.power_id'  )
+            ->get([
+                'powers.en_name as power_en_name',
+                'powers.ar_name as power_ar_name',
+                'powers.level',
+                'powers.id as powers_id',
+            ]);
+        return response()->json([
+            'state' => 200,
+            'data'=>$data,
+            'user'=>$user
+        ], 200);
+    }
+
     public function addUserPower (Request $request){
         $request->validate([
             'user_id' => 'required',
@@ -129,21 +146,7 @@ class PowerController extends Controller
             'power_id' => $request->power_id,
         ]);
 
-        $data = Powers_users:: where('user_id',$request->user_id)
-            ->join( 'powers' , 'powers.id' , 'powers_users.power_id'  )
-            ->join( 'users' , 'users.id' , 'powers_users.user_id'  )
-            ->get([
-                'powers.en_name as power_en_name',
-                'powers.ar_name as power_ar_name',
-                'powers.level',
-                'powers.id as powers_id',
-                'users.id as user_id',
-                'users.name as user_name'
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data'=>$data
-        ], 200);
+        return $this->showUserPowerByUserId($request->user_id);
     }
 
     public function deleteUserPower (Request $request){
@@ -180,43 +183,13 @@ class PowerController extends Controller
 
         Powers_users::where('user_id',$request->user_id)-> where('power_id',$request->power_id)->delete();
 
-        $data = Powers_users:: where('user_id',$request->user_id)
-            ->join( 'powers' , 'powers.id' , 'powers_users.power_id'  )
-            ->join( 'users' , 'users.id' , 'powers_users.user_id'  )
-            ->get([
-                'powers.en_name as power_en_name',
-                'powers.ar_name as power_ar_name',
-                'powers.level',
-                'powers.id as powers_id',
-                'users.id as user_id',
-                'users.name as user_name'
-            ]);
-        return response()->json([
-            'state' => 200,
-            'message'=>'deleted',
-            'data'=>$data
-        ], 200);
+        return $this->showUserPowerByUserId($request->user_id);
     }
 
-    public function showUser_Power (){
-        $user = Auth::user();
-        $data = Powers_users:: where('user_id',$user->id)
-            ->join( 'powers' , 'powers.id' , 'powers_users.power_id'  )
-            ->join( 'users' , 'users.id' , 'powers_users.user_id'  )
-            ->get([
-                'powers.en_name as power_en_name',
-                'powers.ar_name as power_ar_name',
-                'powers.level',
-                'powers.id as powers_id',
-                'users.id as user_id',
-                'users.name as user_name'
-            ]);
-        return response()->json([
-            'state' => 200,
-            'data'=>$data,
-            'user'=>$user
-        ], 200);
+    public function showUser_Power ($id){
+        return $this->showUserPowerByUserId($id);
     }
+
     public function addMultiplePowers(Request $request)
     {
         // إدخال البيانات في قاعدة البيانات

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('clients_balance', function (Blueprint $table) {
             $table->id();
-            $table->float('opening');
-            $table->float('current');
-            $table->float('closing');
+            $table->float('opening',15,6);
+            $table->float('current',15,6);
+            $table->float('closing',15,6);
 
             $table->foreignId('trial_balance_id')
                 ->nullable()

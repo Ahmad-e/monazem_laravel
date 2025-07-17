@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Internal_depts;
 use App\Models\Internal_depts_paymentes;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,7 @@ class InternalDeptsController extends Controller
         $user = Auth::user();
 
         Internal_depts::create([
+            'note' => $request->note,
             'total' => $request->total,
             'paid' => $request->paid,
             'remaining' => $request->remaining ,
@@ -48,6 +50,15 @@ class InternalDeptsController extends Controller
             'business_id' => $user->business_id
 
         ]);
+
+//        $transaction = Transactions::create([
+//            'description' => $request->note ,
+//            'reference_number_type' => 'internal_debt',
+//            'branch_id' => $request->branch_id,
+//            'currency_id' => $request->currency_id,
+//            'business_id' =>$user->business_id,
+//            'creator_id' => $user->id,
+//        ]);
 
         return $this->showInternalDeptByBusinessId($user->business_id);
     }

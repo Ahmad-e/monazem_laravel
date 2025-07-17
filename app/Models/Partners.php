@@ -16,4 +16,8 @@ class Partners extends Model
         'user_id',
         'currency_id',
     ];
+    public function currency()
+    {
+        return $this->belongsTo(Currencies::class);
+    }
 }
