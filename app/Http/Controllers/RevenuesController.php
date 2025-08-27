@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
 use App\Models\Branches;
 use App\Models\Business;
 use App\Models\Expenses;
@@ -9,8 +10,11 @@ use App\Models\Expenses_payments;
 use App\Models\Revenues;
 use App\Models\Revenues_payments;
 
+use App\Models\Transactions;
+use App\Models\Transactions_lines;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RevenuesController extends Controller
 {
@@ -29,27 +33,90 @@ class RevenuesController extends Controller
         return $this->showRevenuesByBusiness($user->business_id);
     }
 
+    public function addRevenuesTransaction(
+        $bus_id ,
+        $branch_id ,
+        $id,
+        $user_id ,
+        $amount,
+        $currency_id,
+        $t_description,
+        $debitAccount_number,
+        $creditAccount_number
+    )
+    {
+        $transaction = Transactions::create([
+            'description' => $t_description,
+            'reference_number_type' => 'transaction',
+            'reference_number' => $creditAccount_number. '_' . $id,
+            'branch_id' => $branch_id,
+            'currency_id' => $currency_id,
+            'business_id' => $bus_id,
+            'creator_id' => $user_id,
+        ]);
+
+        $debit_account = Accounts::where('business_id', $bus_id)
+            ->where('code', $debitAccount_number)->first();
+
+
+        Transactions_lines::create([
+            'description' => $t_description,
+            'debit_credit' => 'Debit',
+            'amount' => $amount,
+            'account_id' => $debit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+        $credit_account = Accounts::where('business_id', $bus_id)
+            ->where('code', $creditAccount_number)->first();
+
+        Transactions_lines::create([
+            'description' => $t_description,
+            'debit_credit' => 'Credit',
+            'amount' => $amount,
+            'account_id' => $credit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+    }
+
     public function addRevenue(Request $request){
-        $user = Auth::user();
+
         $request->validate([
             'name' => 'required',
             'value' => 'required',
-            'currency_id' => 'required'
+            'currency_id' => 'required',
+            'creditAccount_number' => 'required'
         ]);
+        return DB::transaction(function () use ($request) {
+            $user = Auth::user();
+            $revenues = Revenues::create([
+                'name' => $request->name,
+                'value' => $request->value,
+                'remaining' => $request->remaining ? ($request->remaining) : (0),
+                'date' => $request->date,
+                'note' => $request->note,
+                'business_id' => $user->business_id,
+                'branch_id' => $request->branch_id,
+                'currency_id'=>$request->currency_id,
+                'creator_id' => $user->id
+            ]);
 
-        Revenues::create([
-            'name' => $request->name,
-            'value' => $request->value,
-            'remaining' => $request->remaining ? ($request->remaining) : (0),
-            'date' => $request->date,
-            'note' => $request->note,
-            'business_id' => $user->business_id,
-            'branch_id' => $request->branch_id,
-            'currency_id'=>$request->currency_id,
-            'creator_id' => $user->id
-        ]);
+            $t_text='إضافة إيرادات باسم : '.$request->name;
+            $transaction_result = $this->addRevenuesTransaction(
+                $revenues->business_id,
+                $revenues->branch_id,
+                $revenues->id,
+                $user->id,
+                $revenues->value ,
+                $revenues->currency_id,
+                $t_text,
+                $request->debitAccount_number  ? $request->debitAccount_number : '121000',
+                $request->creditAccount_number
+            );
 
-        return $this->showRevenuesByBusiness($user->business_id);
+            return $this->showRevenuesByBusiness($user->business_id);
+        });
     }
 
     public function deleteRevenue ($id){

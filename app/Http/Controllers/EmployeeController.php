@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
+use App\Models\Transactions;
+use App\Models\Transactions_lines;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Employees;
@@ -13,6 +16,7 @@ use App\Models\Employees_holidays;
 use App\Models\Employees_salaries_advance;
 use App\Models\Employees_salaries_advances_payments;
 use App\Models\Currencies;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use function Carbon\this;
@@ -30,13 +34,11 @@ class EmployeeController extends Controller
             'data' => $employees,
         ]);
     }
-
     public function getEmployees()
     {
         $user = Auth::user();
         return $this->getEmployeesByBusinessId($user->business_id);
     }
-
     public function addEmployee(Request $request){
 
         $request->validate([
@@ -60,7 +62,6 @@ class EmployeeController extends Controller
 
         return $this->getEmployeesByBusinessId($user->business_id);
     }
-
     public function updateEmployee(Request $request, $id)
     {
         $employee = Employees::find($id);
@@ -97,7 +98,6 @@ class EmployeeController extends Controller
 
         return $this->getEmployeesByBusinessId($user->business_id);
     }
-
     public function toggleBlockedEmployee($id)
     {
         $employee = Employees::find($id);
@@ -142,7 +142,6 @@ class EmployeeController extends Controller
             'employee_data'=>$employee
         ], 200);
     }
-
     public function addEmployeeSalary(Request $request){
 
         $request->validate([
@@ -182,7 +181,6 @@ class EmployeeController extends Controller
 
         return $this->getAllEmployeeSalariesByBusinessId($request->employee_id);
     }
-
     public function getAllEmployeeSalaries($id){
 
         $employee = Employees::find($id);
@@ -206,7 +204,6 @@ class EmployeeController extends Controller
 
         return $this->getAllEmployeeSalariesByBusinessId($id);
     }
-
     public function getActiveEmployeeSalaries($id){
         $employee = Employees::find($id);
         $user = Auth::user();
@@ -229,7 +226,6 @@ class EmployeeController extends Controller
 
         return $this->getAllEmployeeSalariesByBusinessId($id);
     }
-
     public function selectActiveEmployeeSalaries($id){
         $employeeSalary = Employees_salaries::find($id);
 
@@ -271,6 +267,60 @@ class EmployeeController extends Controller
             'data' => $salaries
         ], 200);
     }
+
+    public function addEmployeesSalariesPaymentTransaction(
+        $bus_id ,
+        $branch_id ,
+        $id,
+        $user_id ,
+        $amount,
+        $currency_id,
+        $t_description,
+        $debitAccount_number,
+        $creditAccount_number
+    )
+    {
+        $transaction = Transactions::create([
+            'description' => $t_description ,
+            'reference_number_type'=>'transaction',
+            'reference_number' => '321_'.$id,
+            'branch_id' => $branch_id,
+            'currency_id' => $currency_id,
+            'business_id' =>$bus_id,
+            'creator_id' => $user_id,
+        ]);
+
+        $debit_account = Accounts::where('business_id',$bus_id)
+            ->where('code',$debitAccount_number)->first();
+
+
+        Transactions_lines::create([
+            'description' => $t_description ,
+            'debit_credit' => 'Debit',
+            'amount' => $amount,
+            'account_id' => $debit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+        $credit_account = Accounts::where('business_id',$bus_id)
+            ->where('code',$creditAccount_number)->first();
+
+        Transactions_lines::create([
+            'description' => $t_description ,
+            'debit_credit' => 'Credit',
+            'amount' => $amount,
+            'account_id' => $credit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+
+
+        return response()->json([
+            'state' => 200,
+            'transaction' => $transaction
+        ], 201);
+    }
+
     public function addEmployeesSalariesPayment (Request $request){
         $request->validate([
             'value' => 'required',
@@ -280,6 +330,7 @@ class EmployeeController extends Controller
             'salary_id' => 'required',
             'currency_id' => 'required'
         ]);
+        return DB::transaction(function () use ($request) {
 
         $user = Auth::user();
 
@@ -302,7 +353,9 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        Employees_salaries_payments::create([
+
+
+        $payment = Employees_salaries_payments::create([
             'value' => $request->value,
             'description' => $request->description,
             'allowances' => $request->allowances,
@@ -315,8 +368,21 @@ class EmployeeController extends Controller
             'creator_id'=>$user->id,
         ]);
 
-        return $this->showEmployeesSalariesPaymentBySalaryId($request->salary_id);
+        $t_text='إضافة دفعة راتب للموظف : '.$employee->name;
+        $transaction = $this->addEmployeesSalariesPaymentTransaction(
+            $user->business_id,
+            $request->branch_id,
+            $payment->id,
+            $user->id,
+            $request->value,
+            $request->currency_id,
+            $t_text,
+            $request->debitAccount_number ? $request->debitAccount_number : '321',
+            $request->creditAccount_number ? $request->debitAccount_number : '121000'
+        );
 
+        return $this->showEmployeesSalariesPaymentBySalaryId($request->salary_id);
+        });
     }
 
     public function showEmployeesSalariesPayment ($id){
@@ -343,7 +409,6 @@ class EmployeeController extends Controller
 
         return $this->showEmployeesSalariesPaymentBySalaryId($id);
     }
-
     public function showEmployeesSalary_SalaryPayment ($id){
 
         $user = Auth::user();
@@ -373,8 +438,9 @@ class EmployeeController extends Controller
             'employee_data'=>$employee
         ], 200);
     }
-
     public function deleteEmployeesSalariesPayment ($id){
+
+        return DB::transaction(function () use ($id) {
         $Payment = Employees_salaries_payments::find($id);
 
         if (!$Payment) {
@@ -398,7 +464,20 @@ class EmployeeController extends Controller
         // حذف العطلة
         $Payment->delete();
 
+        $t_text='حذف دفعة راتب للموظف : '.$employee->name;
+        $transaction = $this->addEmployeesSalariesPaymentTransaction(
+            $user->business_id,
+            $employee->branch_id,
+            $Payment->id,
+            $user->id,
+            $Payment->value,
+            $Payment->currency_id,
+            $t_text,
+            '121000',
+            '321'
+        );
         return $this->showEmployeesSalariesPaymentBySalaryId($id);
+        });
     }
 
     //************************************************
@@ -418,7 +497,58 @@ class EmployeeController extends Controller
             'employee_data'=>$employee
         ], 200);
     }
+    public function addEmployeesAdvanceSalariesPaymentTransaction(
+        $bus_id ,
+        $branch_id ,
+        $id,
+        $user_id ,
+        $amount,
+        $currency_id,
+        $t_description,
+        $debitAccount_number,
+        $creditAccount_number
+    )
+    {
+        $transaction = Transactions::create([
+            'description' => $t_description ,
+            'reference_number_type'=>'transaction',
+            'reference_number' => '321_'.$id,
+            'branch_id' => $branch_id,
+            'currency_id' => $currency_id,
+            'business_id' =>$bus_id,
+            'creator_id' => $user_id,
+        ]);
 
+        $debit_account = Accounts::where('business_id',$bus_id)
+            ->where('code',$debitAccount_number)->first();
+
+
+        Transactions_lines::create([
+            'description' => $t_description ,
+            'debit_credit' => 'Debit',
+            'amount' => $amount,
+            'account_id' => $debit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+        $credit_account = Accounts::where('business_id',$bus_id)
+            ->where('code',$creditAccount_number)->first();
+
+        Transactions_lines::create([
+            'description' => $t_description ,
+            'debit_credit' => 'Credit',
+            'amount' => $amount,
+            'account_id' => $credit_account->id,
+            'transaction_id' => $transaction->id,
+            'currency_id' => $currency_id
+        ]);
+
+
+        return response()->json([
+            'state' => 200,
+            'transaction' => $transaction
+        ], 201);
+    }
     public function addEmployeesSalariesAdvance(Request $request){
 
         $request->validate([
@@ -450,15 +580,16 @@ class EmployeeController extends Controller
             'description' => $request->description,
             'pay_time' => $request->pay_time,
             'paid'=> $request->paid,
-            'is_debts'=> $request->is_debts,
+            'is_debts'=> $request->is_debts ? is_debts : false,
             'employee_id' => $request->employee_id,
             'currency_id' => $request->currency_id,
             'creator_id' => $user->id
         ]);
 
+
+
         return $this->getAllEmployeesSalariesAdvanceByEmployeeId($request->employee_id);
     }
-
     public function getAllEmployeesSalariesAdvance($id) {
         $employee = Employees::find($id);
         $user = Auth::user();
@@ -481,7 +612,6 @@ class EmployeeController extends Controller
 
         return $this->getAllEmployeesSalariesAdvanceByEmployeeId($id);
     }
-
     public function deleteEmployeesSalariesAdvance($id) {
         $salaryAdvance = Employees_salaries_advance::find($id);
 
@@ -503,13 +633,13 @@ class EmployeeController extends Controller
         }
 
         $salaryAdvance->delete();
+
         return $this->getAllEmployeesSalariesAdvanceByEmployeeId($employee->id);
     }
-
     public function updateEmployeesSalariesAdvance(Request $request, $id) {
         // تحقق مما إذا كان السجل موجودًا
         $salaryAdvance = Employees_salaries_advance::find($id);
-
+        $old_salaryAdvance = $salaryAdvance;
         if (!$salaryAdvance) {
             return response()->json([
                 'state' => 404,
@@ -559,6 +689,36 @@ class EmployeeController extends Controller
         // احفظ التغييرات
         $salaryAdvance->save();
 
+//        if($request->has('value')){
+//            $t_text='تعديل دفعة راتب مقدمة للموظف : '.$employee->name;
+//            if($request->value >$salaryAdvance->value ){
+//                $transaction = $this->addEmployeesAdvanceSalariesPaymentTransaction(
+//                    $user->business_id,
+//                    $employee->branch_id,
+//                    $salaryAdvance->id,
+//                    $user->id,
+//                    $request->value - $salaryAdvance->value ,
+//                    $salaryAdvance->currency_id,
+//                    $t_text,
+//                    '125001',
+//                    '121000');
+//            }
+//            else{
+//                $transaction = $this->addEmployeesAdvanceSalariesPaymentTransaction(
+//                    $user->business_id,
+//                    $employee->branch_id,
+//                    $salaryAdvance->id,
+//                    $user->id,
+//                    $salaryAdvance->value - $request->value,
+//                    $salaryAdvance->currency_id,
+//                    $t_text,
+//                    '121000',
+//                    '125001');
+//            }
+//        }
+
+
+
         // عرض جميع البيانات بعد التحديث
         return $this->getAllEmployeesSalariesAdvanceByEmployeeId($employee->id);
     }
@@ -577,7 +737,6 @@ class EmployeeController extends Controller
             'data' => $salaries
         ], 200);
     }
-
     public function getEmployeesSalariesAdvancePayments($id){
         $salary_advance = Employees_salaries_advance::find($id);
         if(!$salary_advance){
@@ -599,14 +758,13 @@ class EmployeeController extends Controller
         }
         return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($id);
     }
-
     public function addEmployeesSalariesAdvancePayments(Request $request){
 
         $request->validate([
             'value' => 'required',
             'salaries_advance_id' => 'required'
         ]);
-
+        return DB::transaction(function () use ($request) {
         $salaries_advance = Employees_salaries_advance::find($request->salaries_advance_id);
         if(!$salaries_advance){
             return response()->json([
@@ -625,47 +783,74 @@ class EmployeeController extends Controller
             ], 402);
         }
 
-        Employees_salaries_advances_payments::create([
+        $Payment = Employees_salaries_advances_payments::create([
             'value' => $request->value,
             'salaries_advance_id' => $request->salaries_advance_id,
             'date' => $request->date,
+            'currency_id'=>$request->currency_id
         ]);
 
+        $t_text='إضافة دفعة راتب مقدمة للموظف : '.$employee->name;
+        $transaction = $this->addEmployeesAdvanceSalariesPaymentTransaction(
+            $user->business_id,
+            $employee->branch_id,
+            $Payment->id,
+            $user->id,
+            $Payment->value,
+            $salaries_advance->currency_id,
+            $t_text,
+            '125001',
+            '121000'
+        );
+
         return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($request->salaries_advance_id);
+        });
     }
-
     public function deleteEmployeesSalariesAdvancePayments($id) {
-        $salaryAdvancePay = Employees_salaries_advances_payments::find($id);
+        return DB::transaction(function () use ($id) {
+            $salaryAdvancePay = Employees_salaries_advances_payments::find($id);
+            if (!$salaryAdvancePay) {
+                return response()->json([
+                    'state' => 404,
+                    'error' => 1,
+                    'message' => "no record found with this ID",
+                ], 404);
+            }
 
-        if (!$salaryAdvancePay) {
-            return response()->json([
-                'state' => 404,
-                'error' => 1,
-                'message' => "no record found with this ID",
-            ], 404);
-        }
+            $salaries_advance = Employees_salaries_advance::find($salaryAdvancePay->salaries_advance_id);
+            if(!$salaries_advance){
+                return response()->json([
+                    'state' => 404,
+                    'error'=> 1 ,
+                    'message'=>"no Employee_salary_advance id found",
+                ], 200);
+            }
+            $employee = Employees::find($salaries_advance->employee_id);
+            $user = Auth::user();
+            if($user->business_id != $employee->business_id){
+                return response()->json([
+                    'state' => 402,
+                    'error'=> 2 ,
+                    'message'=>"This employee not related to your business",
+                ], 402);
+            }
 
-        $salaries_advance = Employees_salaries_advance::find($salaryAdvancePay->salaries_advance_id);
-        if(!$salaries_advance){
-            return response()->json([
-                'state' => 404,
-                'error'=> 1 ,
-                'message'=>"no Employee_salary_advance id found",
-            ], 200);
-        }
-        $employee = Employees::find($salaries_advance->employee_id);
-        $user = Auth::user();
-        if($user->business_id != $employee->business_id){
-            return response()->json([
-                'state' => 402,
-                'error'=> 2 ,
-                'message'=>"This employee not related to your business",
-            ], 402);
-        }
+            $salaryAdvancePay->delete();
 
-        $salaryAdvancePay->delete();
+            $t_text='حذف دفعة راتب مقدمة للموظف : '.$employee->name;
+            $transaction = $this->addEmployeesAdvanceSalariesPaymentTransaction(
+                $user->business_id,
+                $employee->branch_id,
+                $salaryAdvancePay->id,
+                $user->id,
+                $salaryAdvancePay->value,
+                $salaries_advance->currency_id,
+                $t_text,
+                '121000',
+                '125001');
 
-        return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($salaryAdvancePay->salaries_advance_id);
+            return $this->showEmployeesSalariesAdvancePaymentBySalaryAdvanceId($salaryAdvancePay->salaries_advance_id);
+        });
     }
 
 
@@ -699,7 +884,6 @@ class EmployeeController extends Controller
             'data' => $data
         ], 200);
     }
-
     public function addEmployeeCompensation(Request $request){
         $request->validate([
             'value' => 'required',
@@ -744,7 +928,6 @@ class EmployeeController extends Controller
         ]);
         return $this->showEmployeeCompensation($request->employee_id);
     }
-
     public function changeEmployeeCompensation(Request $request,$id){
         $compensation = Employees_compensation::find($id);
 
@@ -803,7 +986,6 @@ class EmployeeController extends Controller
 
         return $this->showEmployeeCompensation($compensation->employee_id);
     }
-
     public function deleteEmployeeCompensation($id){
         $compensation = Employees_compensation::find($id);
 
@@ -870,7 +1052,6 @@ class EmployeeController extends Controller
             'data' => $data
         ], 200);
     }
-
     public function addEmployeeHolidays(Request $request){
         $request->validate([
             'value' => 'required',
@@ -908,9 +1089,6 @@ class EmployeeController extends Controller
         ]);
         return $this->showEmployeeHolidays($request->employee_id);
     }
-
-
-
     public function changeEmployeeHolidays(Request $request,$id){
         $holiday = Employees_holidays::find($id);
 
@@ -970,7 +1148,6 @@ class EmployeeController extends Controller
 
         return $this->showEmployeeHolidays($employee->employee_id);
     }
-
     public function deleteEmployeeHolidays($id){
         $holiday = Employees_holidays::find($id);
 

@@ -309,7 +309,7 @@ Route::middleware('api')->group(function () {
     Route::post('/addAssets', [AssetsController::class, 'addAssets'])->middleware(Users::class)->middleware(assets_power::class);
     Route::get('/showAssets', [AssetsController::class, 'showAssets'])->middleware(Users::class)->middleware(assets_power::class);
     Route::post('/changeAssets/{id}', [AssetsController::class, 'changeAssets'])->middleware(Users::class)->middleware(assets_power::class);
-    Route::get('/deleteAssets/{id}', [AssetsController::class, 'deleteAssets'])->middleware(Users::class)->middleware(assets_power::class);
+//    Route::get('/deleteAssets/{id}', [AssetsController::class, 'deleteAssets'])->middleware(Users::class)->middleware(assets_power::class);
 
     //    RentPrepaid api
 
@@ -355,6 +355,6 @@ Route::middleware('api')->group(function () {
     Route::post('/changeSettings/{id}', [SettingController::class, 'changeSettings'])->middleware(Users::class)->middleware(setting_power::class);
     Route::get('/deleteSettings/{id}', [SettingController::class, 'deleteSettings'])->middleware(Users::class)->middleware(setting_power::class);
 
-
-    Route::get('/test', [AuthController::class, 'test'])->middleware(Users::class);
+//    Route::get('/test', [AuthController::class, 'test'])->middleware(Users::class);
+    Route::get('/test', [RentPrepaidController::class, 'test'])->middleware(Users::class);
 });

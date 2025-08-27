@@ -9,7 +9,7 @@ class Employees_salaries_advances_payments extends Model
     protected $fillable = [
         'value',
         'date',
-        'salaries_advance_id',
+        'salaries_advance_id'
     ];
 
     public function salaryAdvance()

@@ -77,39 +77,40 @@ class TransactionsController extends Controller
 
     public function createTransactionData($data){
 
-        $transaction = Transactions::create([
-            'description' => $data->description ,
-            'reference_number_type' => $data->reference_number_type,
-            'branch_id' => $data->branch_id,
-            'currency_id' => $data->currency_id,
-            'business_id' =>$data->business_id,
-            'creator_id' => $data->creator_id,
-        ]);
-
-//        $debit_account = Accounts::where('creator_id',$data->creator_id)
-//            ->where('code',$data->debit_account_code)->first();
-
-        Transactions_lines::create([
-            'description' => $data->description,
-            'debit_credit' => 'Debit',
-            'amount' => $data->amount,
-            'account_id' =>$data->debit_account,
-            'client_id' => $data->client_id,
-            'partner_id' => $data->partner_id,
-            'transaction_id' => $transaction->id,
-            'currency_id' => $data->currency_id
-        ]);
-
-        Transactions_lines::create([
-            'description' => $data->description,
-            'debit_credit' => 'Credit',
-            'amount' => $data->amount,
-            'account_id' =>$data->credit_account,
-            'client_id' => $data->client_id,
-            'partner_id' => $data->partner_id,
-            'transaction_id' => $transaction->id,
-            'currency_id' => $data->currency_id
-        ]);
+        return $data;
+//        $transaction = Transactions::create([
+//            'description' => $data->description ,
+//            'reference_number_type' => $data->reference_number_type,
+//            'branch_id' => $data->branch_id,
+//            'currency_id' => $data->currency_id,
+//            'business_id' =>$data->business_id,
+//            'creator_id' => $data->creator_id,
+//        ]);
+//
+////        $debit_account = Accounts::where('creator_id',$data->creator_id)
+////            ->where('code',$data->debit_account_code)->first();
+//
+//        Transactions_lines::create([
+//            'description' => $data->description,
+//            'debit_credit' => 'Debit',
+//            'amount' => $data->amount,
+//            'account_id' =>$data->debit_account,
+//            'client_id' => $data->client_id,
+//            'partner_id' => $data->partner_id,
+//            'transaction_id' => $transaction->id,
+//            'currency_id' => $data->currency_id
+//        ]);
+//
+//        Transactions_lines::create([
+//            'description' => $data->description,
+//            'debit_credit' => 'Credit',
+//            'amount' => $data->amount,
+//            'account_id' =>$data->credit_account,
+//            'client_id' => $data->client_id,
+//            'partner_id' => $data->partner_id,
+//            'transaction_id' => $transaction->id,
+//            'currency_id' => $data->currency_id
+//        ]);
 
 
     }
